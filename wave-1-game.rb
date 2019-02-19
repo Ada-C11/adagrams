@@ -1,4 +1,4 @@
-require_relative 'lib/adagrams'
+require_relative "lib/adagrams"
 
 def display_welcome_message
   puts "Welcome to Adagrams!"
@@ -7,7 +7,7 @@ end
 
 def display_drawn_letters(letters)
   puts "You have drawn the letters:"
-  puts letters.join(', ')
+  puts letters.join(", ")
 end
 
 def run_game
@@ -15,4 +15,12 @@ def run_game
   display_drawn_letters(draw_letters)
 end
 
-run_game
+available_letters = {"a" => 9, "b" => 2, "c" => 2, "d" => 4, "e" => 12, "f" => 2, "g" => 3, "h" => 2, 
+                     "i" => 9, "j" => 1, "k" => 1, "l" => 4, "m" => 2, "n" => 6, "o" => 8, "p" => 2, 
+                     "q" => 1, "r" => 6, "s" => 4, "t" => 6, "u" => 4, "v" => 2, "w" => 2, "x" => 1, 
+                     "y" => 2, "z" => 1}
+
+def draw_letters(hash)
+end
+
+draw_letters(available_letters)
