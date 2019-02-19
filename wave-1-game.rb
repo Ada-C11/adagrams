@@ -21,6 +21,14 @@ available_letters = {"a" => 9, "b" => 2, "c" => 2, "d" => 4, "e" => 12, "f" => 2
                      "y" => 2, "z" => 1}
 
 def draw_letters(hash)
+  selected_letters = []
+  10.times do 
+    letter = hash.keys.sample
+    selected_letters.push(letter)
+    hash[letter] = hash[letter] - 1
+  end
+  return selected_letters
 end
 
+# puts selected_letters
 draw_letters(available_letters)
