@@ -79,8 +79,15 @@ def draw_letters(letter_pool)
 end
 
 def uses_available_letters?(input, letters_in_hand)
-  puts input.split("")
-  return letters_in_hand.include?(input.split("")[0])
+  check = true
+  input.split("").each do |char|
+    if !letters_in_hand.include?(char)
+      check = false
+    else
+      letters_in_hand.delete(char)
+    end
+  end
+  return check
 end
 
 hand = draw_letters(letter_pool)
