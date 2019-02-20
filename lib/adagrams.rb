@@ -15,3 +15,13 @@ def draw_letters
   end
   return drawn_letters
 end
+
+def uses_available_letters?(input, letters_in_hand)
+  input.each_char do |letter|
+    if letters_in_hand.include?(letter) == true
+      letters_in_hand -
+    else
+      puts false
+    end
+  end
+end
