@@ -16,12 +16,28 @@ def draw_letters
   return drawn_letters
 end
 
-def uses_available_letters?(input, letters_in_hand)
-  input.each_char do |letter|
-    if letters_in_hand.include?(letter) == true
-      letters_in_hand -
-    else
-      puts false
+# Method that deletes element in array at its specific index. Prevents deletion of mathcing elements
+class Array
+  def delete_elements_in_(array)
+    array.each do |x|
+      if index = index(x)
+        delete_at(index)
+      end
     end
   end
+end
+
+# Checks if user inputs letters from their letter bank
+def uses_available_letters?(input, letters_in_hand)
+  used_letters = []
+  input.each_char do |letter|
+    if letters_in_hand.include?(letter) == true
+      letters_in_hand.delete_elements_in_([letter])
+      used_letters << letter
+    else
+      letters_in_hand = (letters_in_hand << used_letters).flatten! # Resets letter bank if previous user input included invalid letters
+      return false
+    end
+  end
+  return true
 end
