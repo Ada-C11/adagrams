@@ -47,3 +47,15 @@ def draw_letters
   end
   return user_hand
 end
+
+def uses_available_letters?(input, letters_in_hand)
+  input_letters = input.chars
+  input_letters.each do |letter|
+    if letters_in_hand.include?(letter)
+      letters_in_hand.delete(letter)
+    else
+      return false
+    end
+  end
+  return true
+end
