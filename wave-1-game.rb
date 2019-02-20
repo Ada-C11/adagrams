@@ -9,10 +9,11 @@ def display_drawn_letters(letters)
   puts "You have drawn the letters:"
   puts letters.join(', ')
 end
-
+binding.pry
 def run_game
   display_welcome_message
-  display_drawn_letters(draw_letters)
+  display_drawn_letters
 end
 
 run_game
+ 
