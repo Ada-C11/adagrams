@@ -28,7 +28,7 @@ def draw_letters
     return used_letters
 end
 
-# puts draw_letters
+puts draw_letters
 curr_in_hand = draw_letters
 puts curr_in_hand
 
@@ -61,3 +61,8 @@ def score_word(word)
         G: 2, T: 1, H: 4, U: 1, I: 1, V: 4, J: 8, W: 4, K: 5, X: 8, L: 1, Y: 4, M: 3, Z: 10
     }
     word_score = 0
+    split_word = word.upcase.split(//)
+    split_word.reduce("") do |memo, char|
+        
+
+        
