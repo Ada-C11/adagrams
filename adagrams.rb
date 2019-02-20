@@ -10,35 +10,6 @@ def array_gen(hash, array)
 end
 
 def draw_letters 
-# set up all characters for adagram use
-   
-
-    # 9.times {avail_letters << "A"}
-    # 2.times {avail_letters << "B"}
-    # 2.times {avail_letters << "C"}
-    # 4.times {avail_letters << "D"}
-    # 12.times {avail_letters << "E"}
-    # 2.times {avail_letters << "F"}
-    # 3.times {avail_letters << "G"}
-    # 2.times {avail_letters << "H"}
-    # 9.times {avail_letters << "I"}
-    # 1.times {avail_letters << "J"}
-    # 1.times {avail_letters << "K"}
-    # 4.times {avail_letters << "L"}
-    # 2.times {avail_letters << "M"}
-    # 6.times {avail_letters << "N"}
-    # 8.times {avail_letters << "O"}
-    # 2.times {avail_letters << "P"}
-    # 1.times {avail_letters << "Q"}
-    # 6.times {avail_letters << "R"}
-    # 4.times {avail_letters << "S"}
-    # 6.times {avail_letters << "T"}
-    # 4.times {avail_letters << "U"}
-    # 2.times {avail_letters << "V"}
-    # 2.times {avail_letters << "W"}
-    # 1.times {avail_letters << "X"}
-    # 2.times {avail_letters << "Y"}
-    # 1.times {avail_letters << "Z"}
 
     letter_freq = { 
         A: 9, N: 6, B: 2, O: 8, C: 2, P: 2, D: 4, Q: 1, E: 12, R: 6, F: 2, S: 4,
@@ -56,4 +27,28 @@ def draw_letters
     return used_letters
 end
 
-puts draw_letters
+# puts draw_letters
+curr_in_hand = draw_letters
+puts curr_in_hand
+
+def uses_available_letters? (input, letters_in_hand)
+    if input.length > letters_in_hand.length
+        puts "Whoa, buddy. You used more letters than you have in your hand! Try again. "
+        return false
+    else
+        possible_letters = letters_in_hand
+        input_array = input.split(//)
+        input_array.each do |char|
+            if possible_letters.include?(char)
+               possible_letters.delete(char)
+            else
+                "Oh nooooo. You used a letter, #{char}, that's not in your hand"
+                return false
+            end
+        end
+    end
+    return true
+end
+
+input = gets.chomp.upcase
+puts uses_available_letters?(input, curr_in_hand)
