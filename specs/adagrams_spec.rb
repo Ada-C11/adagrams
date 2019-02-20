@@ -56,7 +56,7 @@ describe 'Adagrams' do |draw_letters|
     end
 
   end
- binding.pry
+ 
 
   describe 'score_word method' do
     it 'returns an accurate numerical score according to the score chart' do
