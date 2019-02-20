@@ -65,6 +65,9 @@ def score_word(word)
     word_score = split_word.reduce(0) do |memo, char|
         memo += letter_score[char.to_sym]
     end
+    if word.length >= 7
+        word_score += 8
+    end
     return word_score
 end
         
