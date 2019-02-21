@@ -56,4 +56,19 @@ def score_word(word)
   return points
 end
 
-puts score_word("word")
+def highest_score_from(array_of_words)
+  highest_score_hash = Hash.new(0)
+  highest_score = Hash.new(0)
+
+  array_of_words.each do |word|
+    highest_score_hash[word] = score_word(word)
+  end
+
+  highest_score = highest_score_hash.max_by { |k, v| v }
+
+  binding.pry
+end
+
+words_array = ["banana", "apple", "oraddnge"]
+
+puts highest_score_from(words_array)
