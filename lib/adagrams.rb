@@ -76,5 +76,3 @@ def highest_score_from(words)
   end
   return {:word => candidate, :score => max_score}
 end
-
-puts highest_score_from(["AAAAAAAAAA"])
