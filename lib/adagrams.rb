@@ -64,8 +64,21 @@ def highest_score_from(words)
     highest_score_hash[word] = score_word(word)
   end
 
-  max_words = highest_score_hash.select{|k,v| v == highest_score_hash.values.max}
-end
-words_array = ["banana", "nabana", "orae"]
+  max_words = highest_score_hash.select { |k, v| v == highest_score_hash.values.max }
 
-puts highest_score_from(words_array)
+  winner = {}
+  max_length = 0
+
+  # tiebreakers
+  if max_words.length > 1
+    max_words.each do |k, v|
+      if k.length > max_length
+        max_length = k.length
+      end
+      binding.pry
+      puts max_length
+    end
+  end
+end
+
+highest_score_from(["banana", "bc", "orange"])
