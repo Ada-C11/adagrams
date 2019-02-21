@@ -30,4 +30,26 @@ def draw_letters
     return my_letters
 end 
 
-print "Your 10 letters are #{ draw_letters }."
+def uses_available_letters?(input, letters_in_hand)
+    word = input.split(//)
+    
+    if word.length <= 10
+        word.each do |each_letter_in_word|
+            if !letters_in_hand.include?(each_letter_in_word)
+                return false 
+            end
+            letters_in_hand.delete(each_letter_in_word)
+        end
+        return true  
+    else
+        return false    
+    end
+end
+
+drawn_letters = draw_letters
+print "Your 10 letters are #{ drawn_letters }."
+
+puts "Please make the best work with the letters you were dealt."
+    new_word = gets.chomp.to_s.upcase
+
+uses_available_letters?(new_word, drawn_letters)
