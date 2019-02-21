@@ -70,7 +70,7 @@ def score_word(word)
 end
 
 #Wave 4
-def highest_score_from_words(words)
+def highest_score_from(words)
   winning = {}
   high_score = 0
   best_word = nil
@@ -78,6 +78,14 @@ def highest_score_from_words(words)
     if score_word(word) > high_score
       high_score = score_word(word)
       best_word = word
+    elsif score_word(word) == high_score
+      if best_word.length == 10
+        next
+      elsif word.length == 10
+        best_word = word
+      elsif word.length < best_word.length
+        best_word = word
+      end
     end
   end
   winning[:word] = best_word
