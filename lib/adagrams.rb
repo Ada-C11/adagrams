@@ -73,14 +73,16 @@ input_array = user_input.upcase.split(//)
 # puts "#{input_array}"
 
 def uses_available_letters?(input, letters_in_hand)
+  puts input
+  puts letters_in_hand
   if input.length <= 10
     input.each do |letter|
       if !letters_in_hand.include?(letter)
-        print "false"
+        print "FALSE"
         return false
       end
 
-      letters_in_hand.delete(letter)
+      letters_in_hand.delete_at(letters_in_hand.index(letter))
     end
     print "true"
     return true
@@ -88,7 +90,36 @@ def uses_available_letters?(input, letters_in_hand)
     print "false"
     return false
   end
-  puts "new array :#{letters_in_hand}"
 end
 
 uses_available_letters?(input_array, letters_in_hand)
+puts "new array :#{letters_in_hand}"
+
+def score_word(word)
+  word_array = word.upcase.split(//)
+  score = 0
+
+  word_array.each do |letter|
+    if letter == "A" || letter == "E" || letter == "I" || letter == "O" || letter == "U" || letter == "L" || letter == "N" || letter == "R" || letter == "S" || letter == "T"
+      score += 1
+    elsif letter == "D" || letter == "G"
+      score += 2
+    elsif letter == "B" || letter == "C" || letter == "M" || letter == "P"
+      score += 3
+    elsif letter == "F" || letter == "H" || letter == "V" || letter == "W" || letter == "Y"
+      score += 4
+    elsif letter == "K"
+      score += 5
+    elsif letter == "J" || letter == "X"
+      score += 8
+    elsif letter == "Q" || letter == "Z"
+      score += 10
+    end
+  end
+
+  if word_array.length > 6
+    score += 8
+  end
+  puts "score: #{score}"
+  return score
+end
