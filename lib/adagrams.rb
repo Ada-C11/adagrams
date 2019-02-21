@@ -1,3 +1,5 @@
+require "csv"
+
 def draw_letters
   pool = [
     "A", "A", "A", "A", "A", "A", "A", "A", "A",
@@ -89,4 +91,11 @@ def highest_score_from(words)
   end
 
   return final_winner
+end
+
+def is_in_english_dict?(input)
+  CSV.open("assets/dictionary-english.csv", "r").each do |word|
+    return true if word.include?(input)
+  end
+  return false
 end
