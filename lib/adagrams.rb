@@ -91,14 +91,16 @@ def highest_score_from(words)
     puts "best_scores.length = #{best_scores.length}"
     return best_scores[0]
   end
-  ten_letter_word = best_scores.select do |score_hash|
-    score_hash[:word].length == 10
+  #   ten_letter_word = best_scores.select do |score_hash|
+  #     score_hash[:word].length == 10
+  #   end
+  #   return ten_letter_word[0]
+  best_scores.each do |score_hash|
+    return score_hash if score_hash[:word].length == 10
   end
-  if ten_letter_word.length >= 1
-    puts "yay ten letter word"
-    puts ten_letter_word
-    return ten_letter_word[0]
-  end
-end
 
-puts highest_score_from(["day", "hello", "lalalalala", "xxxxxxx"])
+  best_word = best_scores.min_by do |word_hash|
+    word_hash[:word].length
+  end
+  return best_word
+end
