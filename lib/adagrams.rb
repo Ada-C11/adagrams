@@ -29,15 +29,6 @@ def uses_available_letters?(input, letters_in_hand)
 end
 
 def score_word(word)
-  # score_chart = {
-  #   ["A", "E", "I", "O", "U", "L", "N", "R", "S", "T"] => 1,
-  #   ["D", "G"] => 2,
-  #   ["B", "C", "M", "P"] => 3,
-  #   ["F", "H", "V", "W", "Y"] => 4,
-  #   ["K"] 5,
-  #   ["J", "X"]: 8,
-  #   ["Q", "Z"]: 10
-  # }
   points = 0
   word.upcase.split(//).each do |letter|
     case letter
@@ -58,14 +49,10 @@ def score_word(word)
     end
   end
 
-  # word.each do |letter|
-  #   score_chart.map do |k, v|
-  #     if k.include?(letter)
-  #       return v
-  #     end
-  #   end
-  # end
-  # return points as an array of values
+  if word.length > 6 && word.length < 11
+    points += 8
+  end
+
   return points
 end
 
