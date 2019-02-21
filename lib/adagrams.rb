@@ -80,9 +80,20 @@ def highest_score_from(words)
     words_with_scores = words.map do |word|
         {word: word, score: score_word(word)}
     end
-    
-    # highest_score = words_with_scores.max_by {|hash| hash[:score]}
-    # return highest_score
-    highest_score_from = [0]
-    if highest_score_from
+
+    winner = {
+        word: "",
+        score: 0
+    }
+
+    words_with_scores.each do |hash|
+        if hash[:score] > winner[:score]
+            winner = hash
+        elsif hash[:score] == winner[:score]
+            if ((hash[:word].length < winner[:word].length)  || (hash[:word].length == 10)) && (winner[:word].length != 10)
+                winner = hash
+            end
+        end
+    end
+    return winner
 end
