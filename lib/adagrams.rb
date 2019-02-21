@@ -156,6 +156,3 @@ def is_in_english_dict?(input)
     return false
   end
 end
-
-# is_in_english_dict?("acronyms")
-# returns a boolean true if the input is provided, false if it is not
