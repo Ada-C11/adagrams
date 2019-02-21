@@ -26,7 +26,7 @@ end
 
 def score_word(word)
   word = word.upcase
-  score = 0
+  score = (word.length >= 7) ? 8 : 0
 
   score_chart = [
     {:letters => ["A", "E", "I", "O", "U", "L", "N", "R", "S", "T"], :score => 1},
@@ -45,10 +45,6 @@ def score_word(word)
       end
     end
   }
-
-  if (7..10).include?(word.length)
-    score += 8
-  end
 
   return score
 end
@@ -76,3 +72,7 @@ def highest_score_from(words)
   end
   return {:word => candidate, :score => max_score}
 end
+
+# puts highest_score_from(["cow", "cat", "dog", "sheep"])
+# def is_in_english_dict?(input)
+# end
