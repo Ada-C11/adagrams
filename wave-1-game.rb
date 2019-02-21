@@ -1,4 +1,4 @@
-require_relative 'lib/adagrams'
+require_relative "lib/adagrams"
 
 def display_welcome_message
   puts "Welcome to Adagrams!"
@@ -7,7 +7,7 @@ end
 
 def display_drawn_letters(letters)
   puts "You have drawn the letters:"
-  puts letters.join(', ')
+  puts letters.join(", ")
 end
 
 def run_game

@@ -1,4 +1,3 @@
-# Using array
 def draw_letters
   letters_hash = {"A" => 9, "B" => 2, "C" => 2, "D" => 4, "E" => 12, "F" => 2, "G" => 3, "H" => 2, "I" => 9, "J" => 1, "K" => 1, "L" => 4, "M" => 2, "N" => 6, "O" => 8, "P" => 2, "Q" => 1, "R" => 6, "S" => 4, "T" => 6, "U" => 4, "V" => 2, "W" => 2, "X" => 1, "Y" => 2, "Z" => 1}
 
@@ -54,34 +53,28 @@ def score_word(word)
   return score
 end
 
-# Wave 4
-
-def highest_score_from_words(words)
+def highest_score_from(words)
   max_score = 0
-
-  winning_words = Hash.new
+  candidate = nil
   words.each do |word|
     score = score_word(word)
     if score > max_score
       max_score = score
+      candidate = word
+    elsif score == max_score
+      if word.length == candidate.length
+        next
+      end
+      if word.length == 10
+        candidate = word
+        next
+      end
+      if word.length < candidate.length && candidate.length < 10
+        candidate = word
+      end
     end
   end
-
-  words.each do |word|
-    if score_word(word) == max_score
-      winning_words[word] = max_score
-    end
-  end
-
-  min_length = winning_words.min_by { |word, score|
-    word.length
-  }
-
-  max_length = winning_words.max_by { |word, score|
-    word.length > 9
-  }
-
-  return min_length.first && max_length.first
+  return {:word => candidate, :score => max_score}
 end
 
-puts highest_score_from_words(["woc", "owc", "addaaa", "cow"])
+puts highest_score_from(["AAAAAAAAAA"])
