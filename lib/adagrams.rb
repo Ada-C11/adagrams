@@ -55,25 +55,23 @@ def highest_score_from(words)
   candidate = nil
   words.each do |word|
     score = score_word(word)
+    if score < max_score
+      next
+    end
+
     if score > max_score
       max_score = score
       candidate = word
-    elsif score == max_score
-      if word.length == candidate.length
-        next
-      end
-      if word.length == 10
-        candidate = word
-        next
-      end
-      if word.length < candidate.length && candidate.length < 10
-        candidate = word
-      end
+    end
+
+    if word.length == candidate.length || candidate.length == 10
+      next
+    end
+
+    if word.length == 10 || word.length < candidate.length
+      candidate = word
+      next
     end
   end
   return {:word => candidate, :score => max_score}
 end
-
-# puts highest_score_from(["cow", "cat", "dog", "sheep"])
-# def is_in_english_dict?(input)
-# end
