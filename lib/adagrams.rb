@@ -17,14 +17,14 @@ require "colorize"
                 Z: 1}
 @points_hash = {A: 1, B: 3, C: 3, D: 2, E: 1, F: 4, G: 2, H: 4, I: 1, J: 8, K: 5, L: 1, M: 3, N: 1, O: 1, P: 3, Q: 10, R: 1, S: 1, T: 1, U: 1, V: 4, W: 4, X: 8, Y: 4, Z: 10}
 
-@letter_array = ["A", "A", "A", "A", "A", "A", "A", "A", "A", "B", "B", "C", "C", "D", "D", "D", "D", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "F", "F", "G", "G", "G", "H", "H", "I", "I", "I", "I", "I", "I", "I", "I", "I", "J", "K", "L", "L", "L", "L", "M", "M", "N", "N", "N", "N", "N", "N", "O", "O", "O", "O", "O", "O", "O", "O", "P", "P", "Q", "R", "R", "R", "R", "R", "R", "S", "S", "S", "S", "T", "T", "T", "T", "T", "T", "U", "U", "U", "U", "V", "V", "W", "W", "X", "Y", "Y", "Z"]
-@letter_hash.each do |letter, number|
-  number.times do
-    @letter_array.push(letter.to_s)
-  end
-end
-puts "#{@letter_array}"
-clone_array = @letter_array.clone
+# @letter_array = ["A", "A", "A", "A", "A", "A", "A", "A", "A", "B", "B", "C", "C", "D", "D", "D", "D", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "F", "F", "G", "G", "G", "H", "H", "I", "I", "I", "I", "I", "I", "I", "I", "I", "J", "K", "L", "L", "L", "L", "M", "M", "N", "N", "N", "N", "N", "N", "O", "O", "O", "O", "O", "O", "O", "O", "P", "P", "Q", "R", "R", "R", "R", "R", "R", "S", "S", "S", "S", "T", "T", "T", "T", "T", "T", "U", "U", "U", "U", "V", "V", "W", "W", "X", "Y", "Y", "Z"]
+# @letter_hash.each do |letter, number|
+#   number.times do
+#     @letter_array.push(letter.to_s)
+#   end
+# end
+# puts "#{@letter_array}"
+# clone_array = @letter_array.clone
 
 def draw_letters
   letter_array = ["A", "A", "A", "A", "A", "A", "A", "A", "A", "B", "B", "C", "C", "D", "D", "D", "D", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "F", "F", "G", "G", "G", "H", "H", "I", "I", "I", "I", "I", "I", "I", "I", "I", "J", "K", "L", "L", "L", "L", "M", "M", "N", "N", "N", "N", "N", "N", "O", "O", "O", "O", "O", "O", "O", "O", "P", "P", "Q", "R", "R", "R", "R", "R", "R", "S", "S", "S", "S", "T", "T", "T", "T", "T", "T", "U", "U", "U", "U", "V", "V", "W", "W", "X", "Y", "Y", "Z"]
@@ -73,7 +73,32 @@ end
 
 # puts "Total score: #{score_word("question")}"
 
-# def highest_score_from_words(words)
-#   # score_hash = Hash.new
-#   score_array = words.map do |word|
-#     { word =>
+def highest_score_from(words)
+  # score_hash = Hash.new
+  score_array = words.map do |word|
+    {word: word, score: score_word(word)}
+  end
+  puts "Score array = #{score_array}"
+  best_score = score_array.max_by do |word_hash|
+    word_hash[:score]
+  end
+  puts "Best score = #{best_score}"
+  best_scores = score_array.select do |score_hash|
+    score_hash[:score] == best_score[:score]
+  end
+  puts "best scores = #{best_scores}"
+  if best_scores.length == 1
+    puts "best_scores.length = #{best_scores.length}"
+    return best_scores[0]
+  end
+  ten_letter_word = best_scores.select do |score_hash|
+    score_hash[:word].length == 10
+  end
+  if ten_letter_word.length >= 1
+    puts "yay ten letter word"
+    puts ten_letter_word
+    return ten_letter_word[0]
+  end
+end
+
+puts highest_score_from(["day", "hello", "lalalalala", "xxxxxxx"])
