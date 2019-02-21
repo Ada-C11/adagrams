@@ -76,7 +76,8 @@ def store_word (word)
   score = 0
 
   score_chart.each do |key, value|
-    if word.include?(key.to_s)
+    key.each do |letter|
+    if letter[:key].include?(key.to_s)
       score += value
     end
   end
@@ -84,3 +85,15 @@ def store_word (word)
 end
 
 puts store_word('HELLO')
+
+# driver.each do |driver_id, rides|
+#   highest_cost = 0
+#   best_day = ''
+#   rides.each do |rider|
+#     if rider[:cost] > highest_cost
+#       highest_cost = rider[:cost]
+#       best_day = rider[:date]
+#     end
+#   end
+#   puts "DRIVER: #{driver_id} made the most money $#{highest_cost} dollars on #{best_day}."
+# end
