@@ -28,23 +28,22 @@ def draw_letters
     "Z",
   ]
 
-  hand1 = pool[1..98].sample(10)
-  print hand1
-  return hand1
+  hand = pool[1..98].sample(10)
+  return hand
 end
 
 def uses_available_letters?(input, letters_in_hand)
-  input = input.upcase
-  input.each_char do |c|
-    if letters_in_hand.include?(c)
-      letters_in_hand = letters_in_hand.reject { |char| c }
-      puts letters_in_hand
+  word = input.upcase
+  split_word = word.split("")
+
+  split_word.each do |letter|
+    index = letters_in_hand.index(letter)
+    if letters_in_hand.all? { letter } && index != nil
+      letters_in_hand.delete_at(index)
     else
-      puts "This is false"
       return false
     end
   end
-  puts "its true"
   return true
 end
 
@@ -70,56 +69,24 @@ def score_word(word)
   return score
 end
 
-# rand_var = draw_letters
-# store method return values in  like above?
-
-# puts "Enter word: "
-# word = gets.chomp.upcase
-
-# uses_available_letters?(word, (rand_var))
-# puts "Score: #{score_word(word)}"
-
 def highest_score_from(words)
-  all_scores = []
-
+  final_winner = {
+    word: "",
+    score: 0,
+  }
   words.each do |word|
     score = score_word(word)
-    all_scores << score
-  end
-
-  highest_score_index = all_scores.index(all_scores.max)
-
-  best_score = all_scores[highest_score_index]
-
-  highest_indexes = all_scores.each_index.select { |x| all_scores[x] == best_score }
-
-  all_best_words = []
-
-  highest_indexes.each do |index|
-    all_best_words << words[index]
-  end
-
-  if all_best_words.length == 2
-    if all_best_words[0].length == 10
-      best_word = all_best_words[0]
-    else
-      if all_best_words[0].length > all_best_words[1].length
-        best_word = all_best_words[1]
-      else
-        best_word = all_best_words[0]
+    if score > final_winner[:score]
+      final_winner[:score] = score
+      final_winner[:word] = word
+    elsif score == final_winner[:score]
+      if word.length == 10 && final_winner[:word].length != 10
+        final_winner[:word] = word
+      elsif (word.length < final_winner[:word].length) && (final_winner[:word].length != 10)
+        final_winner[:word] = word
       end
     end
-  elsif all_best_words.length > 2
-    best_word = all_best_words[0]
   end
 
-  return final_data = {
-           word: best_word,
-           score: best_score,
-         }
+  return final_winner
 end
-
-# test = ["APPLE", "PEAR", "CAT", "APPLE"]
-
-# score_word(test[0])
-# puts highest_score_from_words(test)
