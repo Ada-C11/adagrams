@@ -1,6 +1,6 @@
 require 'pry'
-require 'terminal-table'
 
+# Helper method that creates array of letters that are available to be drawn
 def array_gen(hash, array)
     hash.each do |key, value|
         value.times do
@@ -9,6 +9,7 @@ def array_gen(hash, array)
     end
 end
 
+# Returns an array of 10 letters chosen at random from available letters
 def draw_letters 
 
     letter_freq = { 
@@ -28,10 +29,7 @@ def draw_letters
     return used_letters
 end
 
-puts draw_letters
-curr_in_hand = draw_letters
-puts curr_in_hand
-
+# Validates input word by determining if it can be formed with letters in hand
 def uses_available_letters? (input, letters_in_hand)
     if input.length > letters_in_hand.length
         puts "Whoa, buddy. You used more letters than you have in your hand! Try again. "
@@ -51,10 +49,7 @@ def uses_available_letters? (input, letters_in_hand)
     return true
 end
 
-input = gets.chomp.upcase
-puts uses_available_letters?(input, curr_in_hand)
-
-
+# Scores each word
 def score_word(word)
     letter_score = { 
         A: 1, N: 1, B: 3, O: 1, C: 3, P: 3, D: 2, Q: 10, E: 1, R: 1, F: 4, S: 1,
@@ -71,11 +66,8 @@ def score_word(word)
     return word_score
 end
         
-# find highest score - check
-# preference to shortest words UNLESS word is 10 letters
-# 10 letters wins over same score/fewer letters
-# if same score AND same length, pick first in index
 
+# Returns a single hash that represents the data of a winning word and its score.
 def highest_score_from(words)
     words_with_scores = words.map do |word|
         {word: word, score: score_word(word)}
