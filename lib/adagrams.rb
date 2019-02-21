@@ -42,6 +42,7 @@ def score_word(word)
     score_chart.each do |element|
       if element[:letters].include?(c)
         score += element[:score]
+        break
       end
     end
   }
