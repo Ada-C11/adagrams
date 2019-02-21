@@ -60,7 +60,7 @@ def uses_available_letters?(input, letters_in_hand)
   return true
 end
 
-def score_word (word)
+def score_word(word)
   score = 0
   word = word.downcase
   split_word = word.chars
@@ -86,4 +86,16 @@ def score_word (word)
     score += 8
   end
   return score
+end
+
+def highest_score_from(words)
+  scored_words = []
+  highest_scored_word = 0
+  words.each do |word|
+    scored_words << {:word => word, :score => score_word(word)}
+  end
+highest_scored_word = scored_words.max_by do |scored_words| 
+  scored_words[:score]
+end
+return highest_scored_word
 end
