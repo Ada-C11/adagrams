@@ -167,3 +167,27 @@ describe "Adagrams" do
     end
   end
 end
+
+describe "determines whether words are in the English dictionary" do
+  it "finds the word in the dictionary" do
+    # arrange
+    word = "giraffe"
+    # act
+    check_word = is_in_english_dict?(word)
+
+    # assert
+
+    expect(check_word).must_equal true
+  end
+
+  it "doesn't find non-word in the dictionary" do
+    # arrange
+    word = "girafee"
+    # act
+    check_word = is_in_english_dict?(word)
+
+    # assert
+
+    expect(check_word).must_equal false
+  end
+end

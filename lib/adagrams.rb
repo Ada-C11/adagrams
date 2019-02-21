@@ -1,32 +1,6 @@
 require "pry"
-# LETTER_POOL = [
-#   {A: 9},
-#   {B: 2},
-#   {C: 2},
-#   {D: 4},
-#   {E: 12},
-#   {F: 2},
-#   {G: 3},
-#   {H: 2},
-#   {I: 9},
-#   {J: 1},
-#   {K: 1},
-#   {L: 4},
-#   {M: 2},
-#   {N: 6},
-#   {O: 8},
-#   {P: 2},
-#   {Q: 1},
-#   {R: 6},
-#   {S: 4},
-#   {T: 6},
-#   {U: 4},
-#   {V: 2},
-#   {W: 2},
-#   {X: 1},
-#   {Y: 2},
-#   {Z: 1},
-# ]
+require "csv"
+
 LETTER_POOL =
   {A: 9,
    B: 2,
@@ -89,10 +63,8 @@ def draw_letters
   letters_array = []
   i = 0
   until i == 10
-    # char = LETTER_POOL.sample.keys[0]
     char = LETTER_POOL.to_a.sample[0]
 
-    # letters_hash.has_key?(char) ? letters_hash.merge!({char => letters_hash[char] + 1}) : letters_hash.merge!({char => 1})
     if letters_hash.has_key?(char)
       if letters_hash[char] < LETTER_POOL[char].to_i
         letters_hash.merge!({char => letters_hash[char] + 1})
@@ -134,7 +106,7 @@ def highest_score_from(words)
   max_score = temp_hash[:score]
 
   highest_scoring_words = words_and_scores.select { |x| x[:score] == max_score }
-  puts "#{highest_scoring_words} are the highest scoring words"
+
   winner = ""
   if highest_scoring_words.length > 1
     highest_scoring_words.each do |hash|
@@ -154,12 +126,12 @@ def highest_score_from(words)
   return result_hash
 end
 
-# binding.pry
-
-hand = draw_letters
-
-print hand
-print "Enter an anagram: "
-anagram = gets.chomp.upcase
-
-# puts "#{uses_available_letters?(anagram, hand)}"
+def is_in_english_dict?(input)
+  dictionary = CSV.read("assets/dictionary-english.csv")
+  word_in_array = [input]
+  if dictionary.include? word_in_array
+    return true
+  else
+    return false
+  end
+end
