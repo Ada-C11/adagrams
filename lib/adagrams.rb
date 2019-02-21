@@ -68,18 +68,19 @@ puts letters_in_hand
 puts "What word would you like to create?"
 user_input = gets.chomp
 
-input_array = user_input.upcase.split(//)
-
 # puts "#{input_array}"
 
 def uses_available_letters?(input, letters_in_hand)
   puts input
   puts letters_in_hand
-  if input.length <= 10
-    input.each do |letter|
+  input_array = input.upcase.split(//)
+  if input_array.length <= 10
+    input_array.each do |letter|
       if !letters_in_hand.include?(letter)
         print "FALSE"
         return false
+        # else
+        #   return true
       end
 
       letters_in_hand.delete_at(letters_in_hand.index(letter))
@@ -92,7 +93,7 @@ def uses_available_letters?(input, letters_in_hand)
   end
 end
 
-uses_available_letters?(input_array, letters_in_hand)
+uses_available_letters?(user_input, letters_in_hand)
 puts "new array :#{letters_in_hand}"
 
 def score_word(word)
