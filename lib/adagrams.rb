@@ -1,4 +1,3 @@
-
 def draw_letters
   available_letters = {"a" => 9, "b" => 2, "c" => 2, "d" => 4, "e" => 12, "f" => 2, "g" => 3, "h" => 2,
                        "i" => 9, "j" => 1, "k" => 1, "l" => 4, "m" => 2, "n" => 6, "o" => 8, "p" => 2,
@@ -68,4 +67,20 @@ def score_word(word)
     score += 8
   end
   return score
+end
+
+#Wave 4
+def highest_score_from_words(words)
+  winning = {}
+  high_score = 0
+  best_word = nil
+  words.each do |word|
+    if score_word(word) > high_score
+      high_score = score_word(word)
+      best_word = word
+    end
+  end
+  winning[:word] = best_word
+  winning[:score] = high_score
+  return winning
 end
