@@ -71,5 +71,18 @@ def score_word(word)
     return word_score
 end
         
+# find highest score - check
+# preference to shortest words UNLESS word is 10 letters
+# 10 letters wins over same score/fewer letters
+# if same score AND same length, pick first in index
 
-        
+def highest_score_from(words)
+    words_with_scores = words.map do |word|
+        {word: word, score: score_word(word)}
+    end
+    
+    # highest_score = words_with_scores.max_by {|hash| hash[:score]}
+    # return highest_score
+    highest_score_from = [0]
+    if highest_score_from
+end
