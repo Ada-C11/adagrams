@@ -11,22 +11,42 @@ def draw_letters
   return letter_bag.sample(10)
 end
 
+# def uses_available_letters?(input, letters_in_hand)
+#   input_to_array = input.upcase.split("")
+#   puts "Letters in hand1: #{letters_in_hand}"
+
+#   deleted_letters = []
+
+#   input_to_array.each do |letter|
+#     if letters_in_hand.include?(letter)
+#       deleted_letters << letter
+#       p deleted_letters
+#       letters_in_hand.delete_at(letters_in_hand.index(letter))
+#     else
+#       repopulated_letters_in_hand = letters_in_hand + deleted_letters
+#       letters_in_hand = repopulated_letters_in_hand
+#       puts "Repop: #{repopulated_letters_in_hand}"
+#       puts "Letters in hand: #{letters_in_hand}"
+#       return false
+#     end
+#   end
+#   return true
+# end
+
 def uses_available_letters?(input, letters_in_hand)
-  input_to_array = input.split("")
-  p input_to_array
-  p letters_in_hand
-  leftovers = letters_in_hand - input_to_array
-  p leftovers
+  new_array = letters_in_hand.clone
+  input_to_array = input.upcase.split("")
+
   input_to_array.each do |letter|
-    # IT'S NOT WORKING BECAUSE LETTER ISN'T AN ARRAY?????
-    if letters_in_hand.include?(letter)
-      letters_in_hand = letters_in_hand - letter
+    if new_array.include?(letter)
+      new_array.delete_at(new_array.index(letter))
     else
       return false
     end
-    return true
   end
+  return true
 end
 
-puts uses_available_letters?("dog", ["d", "o", "o", "g"])
-# (letters_in_hand.length - input.length) == leftovers.length
+# #input_to_array
+# puts uses_available_letters?("DOG", ["D", "O", "O", "G"])
+# # (letters_in_hand.length - input.length) == leftovers.length
