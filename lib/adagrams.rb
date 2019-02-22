@@ -34,33 +34,15 @@ end
 
 letters_in_hand = draw_letters
 
-# Returns either true or false
-# Returns true if every letter in the input word is available (in the right quantities)
-# in the letters_in_hand
-# Returns false if not; if there is a letter in input that is not present in the letters_in_hand or
-# has too much of compared to the letters_in_hand
-
-puts "#{letters_in_hand}"
-puts "Please enter an adagram"
-input = gets.chomp.upcase!
-
 def uses_available_letters?(input, letters_in_hand)
   input_array = input.split("")
   return (input_array - letters_in_hand).empty?
 end
 
-#puts uses_available_letters?(input, letters_in_hand)
-
-# #Has one parameter: word, which is a string of characters
-# Returns an integer representing the number of points
-# Each letter within word has a point value. The number of points of each letter is
-# summed up to represent the total score of word
-# Each letter's point value is described in the table below
-# If the length of the word is 7, 8, 9, or 10, then the word gets an additional 8 points
 def score_word(word)
   points = 0
+  scores = []
   word_array = word.split("")
-  puts word_array
   word_array.each do |letter|
     point_1 = ["A", "E", "I", "O", "U", "L", "N", "R", "S", "T"]
     point_1.each do |letter_p|
@@ -105,22 +87,70 @@ def score_word(word)
       end
     end
   end
-  if word_array.length >= 7 || word_array.length <= 10
+  if word_array.length >= 7
     points += 8
   end
+  scores << points
+
   return points
 end
 
-puts score_word(input)
+def highest_score_from(words)
+  scores = []
+  words.each_with_index do |word, index|
+    scores << [score_word(word), word]
+  end
 
-# need to figure out how to store the point values for each letter
-# how to know what letters the input contains so we can assign point values
-# if/else case/when / count
+  maximum = scores.max
+  max = maximum[0]
+  puts "#{maximum}"
 
-# A, E, I, O, U, L, N, R, S, T	1
-# D, G	2
-# B, C, M, P	3
-# F, H, V, W, Y	4
-# K	5
-# J, X	8
-# Q, Z	10
+  tie = scores.flat_map { |i| i }
+  variable = tie.count(max)
+  puts variable
+
+  high_score = {
+    word: maximum[0],
+    score: maximum[1],
+  }
+  puts high_score
+  return high_score
+end
+
+# count = words.count(maximum[0])
+#puts count
+# HERE
+# scores flat map then count to see if there's a tie for max value
+
+# scores.each do |array|
+#   if array[0].include?(maximum[0])
+#     puts "it's there #{array}"
+#   end
+# end
+
+# puts count
+
+# puts "#{scores}"
+
+# --------
+# puts "#{words}"
+# word_score = score_word(word)
+# puts "#{top_score}"
+# high_score = words.max_by {|word| word_score }
+# variable = words[0]
+# word_score = score_word(variable)
+# puts word_score
+
+# highest_score_from(words)
+# puts score_word(input)
+
+# In the case of tie in scores, use these tie-breaking
+# rules:
+# prefer the word with the fewest letters...
+# ...unless one word has 10 letters. If the top score
+# is tied between multiple words and one is 10 letters
+#long, choose the one with 10 letters over the one with
+#fewer tiles
+# If the there are multiple words that are the same
+#score and the same length, pick the first one in the
+#supplied list
