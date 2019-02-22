@@ -166,4 +166,23 @@ describe "Adagrams" do
       expect(best_word[:score]).must_equal 18
     end
   end
+
+  describe "is_in_english_dict?" do
+    it "should return false, word not in dictionary" do
+      words = ["lalalalala", "nooooooooo", "AHHH"]
+
+      words.each do |word|
+        result = is_in_english_dict?(word)
+        expect(result).must_equal false
+      end
+    end
+
+    it "should return true, word is in dictionary" do
+      words = ["hello", "cat", "DOG"]
+      words.each do |word|
+        result = is_in_english_dict?(word)
+        expect(result).must_equal true
+      end
+    end
+  end
 end

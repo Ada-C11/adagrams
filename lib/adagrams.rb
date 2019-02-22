@@ -56,7 +56,7 @@ end
 
 def is_in_english_dict?(input)
   CSV.foreach("assets/dictionary-english.csv") do |row|
-    return true if row[0] == input
+    return true if row[0] == input.downcase
   end
   return false
 end
