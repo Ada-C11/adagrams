@@ -11,28 +11,6 @@ def draw_letters
   return letter_bag.sample(10)
 end
 
-# def uses_available_letters?(input, letters_in_hand)
-#   input_to_array = input.upcase.split("")
-#   puts "Letters in hand1: #{letters_in_hand}"
-
-#   deleted_letters = []
-
-#   input_to_array.each do |letter|
-#     if letters_in_hand.include?(letter)
-#       deleted_letters << letter
-#       p deleted_letters
-#       letters_in_hand.delete_at(letters_in_hand.index(letter))
-#     else
-#       repopulated_letters_in_hand = letters_in_hand + deleted_letters
-#       letters_in_hand = repopulated_letters_in_hand
-#       puts "Repop: #{repopulated_letters_in_hand}"
-#       puts "Letters in hand: #{letters_in_hand}"
-#       return false
-#     end
-#   end
-#   return true
-# end
-
 def uses_available_letters?(input, letters_in_hand)
   new_array = letters_in_hand.clone
   input_to_array = input.upcase.split("")
@@ -47,6 +25,82 @@ def uses_available_letters?(input, letters_in_hand)
   return true
 end
 
-# #input_to_array
-# puts uses_available_letters?("DOG", ["D", "O", "O", "G"])
-# # (letters_in_hand.length - input.length) == leftovers.length
+def score_word(word)
+  point_value = [
+    {
+      letters: ["A", "E", "I", "O", "U", "L", "N", "R", "S", "T"],
+      values: 1,
+    },
+    {
+      letters: ["D", "G"],
+      values: 2,
+    },
+    {
+      letters: ["B", "C", "M", "P"],
+      values: 3,
+    },
+    {
+      letters: ["F", "H", "V", "W", "Y"],
+      values: 4,
+    },
+    {
+      letters: ["K"],
+      values: 5,
+    },
+    {
+      letters: ["J", "X"],
+      values: 8,
+    },
+    {
+      letters: ["Q", "Z"],
+      values: 10,
+    },
+  ]
+
+  word_score = 0
+  arr_word = word.upcase.split("")
+  letter_score = 0
+  arr_word.each do |letter|
+    point_value.each do |pair|
+      if pair[:letters].include?(letter)
+        letter_score = pair[:values]
+      end
+    end
+    word_score += letter_score
+  end
+  if arr_word.length > 6
+    word_score += 8
+  end
+  return word_score
+end
+
+def highest_score_from(words)
+  words_with_scores_array = []
+  score_of_words = words.map do |word|
+    words_with_scores_array << {
+      word: word,
+      score: score_word(word),
+    }
+  end
+  winning_word = words_with_scores_array.max_by do |word_score_hash|
+    word_score_hash[:score]
+  end
+  winners = []
+  words_with_scores_array.each do |word|
+    if word[:score] == winning_word[:score]
+      winners << word
+    end
+  end
+  if winners.length == 1
+    return winning_word
+  else # if there's a tie
+    winners.each do |winner|
+      return winner if winner[:word].length == 10
+    end
+    return winners.min_by do |winner|
+             winner[:word].length
+           end
+  end
+end
+
+p highest_score_from(["dot", "lat", "at"])
