@@ -102,5 +102,3 @@ def highest_score_from(words)
            end
   end
 end
-
-p highest_score_from(["dot", "lat", "at"])
