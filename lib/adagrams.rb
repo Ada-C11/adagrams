@@ -15,9 +15,6 @@ def draw_letters
   return user_hand
 end
 
-# user_hand = draw_letters
-# print user_hand
-
 # WAVE 2
 # Determines whether input is valid (based on user hand)
 def uses_available_letters?(input, letters_in_hand)
@@ -32,13 +29,6 @@ def uses_available_letters?(input, letters_in_hand)
   end
   return uses_available_letters
 end
-
-# WAVE 2 and 3 TESTERS
-input = "aeioulnrst"
-letters_in_hand = ["d", "i", "g", "s"].shuffle
-
-result = uses_available_letters?(input, letters_in_hand)
-puts result
 
 # WAVE 3
 SCORE_CHART = {1 => ["a", "e", "i", "o", "u", "l", "n", "r", "s", "t"],
@@ -56,7 +46,7 @@ def score_word(word)
 
   word.each_char do |char|
     SCORE_CHART.each do |score, letters|
-      if letters.include?(char)
+      if letters.include?(char.downcase)
         total_score += score
       end
     end
@@ -69,7 +59,48 @@ def score_word(word)
   return total_score
 end
 
-score = score_word(input)
-puts score
+# score = score_word(input)
+# puts score
 
 # WAVE 4
+def highest_score_from_words(words)
+
+  # What is each word's score?
+  all_scores = {}
+  words.each do |word|
+    score = score_word(word)
+    all_scores[word] = score
+  end
+
+  best_word = ""
+  best_score = 0
+  # Which word(s) have the highest score?
+  all_scores.each do |word, score|
+    if score > best_score
+      best_word = word
+      best_score = score
+    elsif score == best_score
+      # BREAK THE TIE
+    else
+      # NOTHING, go on to next word!
+    end
+  end
+
+  return best_word
+end
+
+# Make a tie-breaking method!
+
+# Does the word have 10 letters?
+# Yes - DONE
+# No - move on to the next statement
+
+# (Which word has the fewest letters?)
+# Is word.length less than best_word?
+# Yes - New best word!
+# No - Nothing.  Move onto the next word.
+
+# Which word was supplied first?
+# Is word's index less than best word's index?
+# Yes - New best word!
+# No - Nothing.  Move onto the next word.
