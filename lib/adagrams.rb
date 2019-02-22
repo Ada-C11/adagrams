@@ -1,3 +1,5 @@
+require "csv"
+
 def draw_letters
   available_letters = {"a" => 9, "b" => 2, "c" => 2, "d" => 4, "e" => 12, "f" => 2, "g" => 3, "h" => 2,
                        "i" => 9, "j" => 1, "k" => 1, "l" => 4, "m" => 2, "n" => 6, "o" => 8, "p" => 2,
@@ -38,6 +40,7 @@ def uses_available_letters?(input, letters_in_hand)
       return false
     end
   end
+  letters_in_hand = (letters_in_hand << used_letters).flatten!
   return true
 end
 
@@ -91,4 +94,10 @@ def highest_score_from(words)
   winning[:word] = best_word
   winning[:score] = high_score
   return winning
+end
+
+# Wave 5
+def is_in_english_dict?(input)
+  english_words = CSV.read("assets/dictionary_english.csv")
+  return english_words.flatten!.include?(input)
 end
