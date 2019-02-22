@@ -37,3 +37,25 @@ def score_word(word)
   end
   return total
 end
+
+def highest_score_from(words)
+  best_word = ""
+  best_score = 0
+  highest_score = {}
+
+  words.each do |word|
+    score = score_word(word)
+
+    if score > best_score
+      best_score = score
+      best_word = word
+    elsif score == best_score && word.length < best_word.length && best_word.length != 10
+      best_word = word
+    elsif score == best_score && word.length == 10 && best_word.length != 10
+      best_word = word
+    end
+  end
+  highest_score.store(:word, best_word)
+  highest_score.store(:score, best_score)
+  return highest_score
+end
