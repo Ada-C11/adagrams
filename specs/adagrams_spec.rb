@@ -53,6 +53,16 @@ describe "Adagrams" do
 
       expect(is_valid).must_equal false
     end
+
+    it "raises exception if arguments are invalid type" do
+      expect {
+        uses_available_letters?("A", :key)
+      }.must_raise ArgumentError
+
+      expect {
+        uses_available_letters?(8, ["A", "B", "C", "D", "E", "A", "B", "C", "D", "E"])
+      }.must_raise ArgumentError
+    end
   end
 
   describe "score_word method" do
