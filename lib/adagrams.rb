@@ -1,4 +1,5 @@
 require "pry"
+require "csv"
 
 # Helper method that creates array of letters that are available to be drawn
 def array_gen(hash)
@@ -79,4 +80,10 @@ def highest_score_from(words)
     end
   end
   return winner
+end
+
+def is_in_english_dict?(input)
+  dictionary = CSV.read("assets/dictionary-english.csv")
+  valid_word = dictionary.include?(input) ? true : false
+  return valid_word
 end
