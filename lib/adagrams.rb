@@ -1,5 +1,4 @@
-require_relative '../assets/dictionary - english.csv"'
-csv.read("dictionary - english.csv")
+require "csv"
 
 def draw_letters
   letter_pool = []
@@ -76,34 +75,44 @@ def highest_score_from(words)
   end
   highest_score = word_scores.max
   highest_score_hash = words_scores_hash.select { |k, v| v == highest_score }
-  # highest_hash = words_scores_hash.max_by { |k, v| v }
+
+  winning_word = highest_score_hash.values
+  result = {word: winning_word[0], score: highest_score}
 
   if highest_score_hash.length > 1
     winner = {}
     keys = highest_score_hash.keys
     lengths = keys.map { |key| key.length }
     if lengths.include? 10 == true
-      winner = highest_score_hash.select { |k, v| v == 10 }.first
+      winner = {word: keys[lengths.find_index(10)], score: highest_score}
+
+      #highest_score_hash.find{|k,v| v == 10}.first
     else
       min = keys.min_by { |key| key.length }
-      winner = highest_score_hash.select { |k, v| k == min }.first
+      winner = {word: min, score: highest_score}
+      #winner = highest_score_hash.find{|k,v| k == min}.first
     end
     highest_score_hash[winner[0]] = winner[1]
   end
-  puts "#{highest_score_hash}"
-  puts highest_score_hash.class
-  winning_word = highest_score_hash.keys
-  result = {word: winning_word[0], score: highest_score_hash[winning_word[0]]}
+
+  result = highest_score_hash
+
   return result
 end
 
-def is_in_english_dict?(input)
-  if dictionary - english.csv.include?(input)
-    return true
-  else return false   end
-end
-
-test = ["quail", "dog", "zuail", "cat", "BBBBBB", "AAAAAAAAAA"]
+test = ["X", "XX", "XXX", "XXXX"]
 puts highest_score_from(test)
 
-puts is_in_english_dict?("pig")
+def is_in_english_dict?(input)
+  input_in_dictionary = false
+  CSV.foreach("../assets/dictionary-english.csv") do |row|
+    row.each do |word|
+      if word == input
+        input_in_dictionary = true
+      end
+    end
+  end
+  return input_in_dictionary
+end
+
+puts is_in_english_dict?("yaw")
