@@ -46,3 +46,25 @@ def score_word(word)
 
     return my_score
 end
+
+# Wave 4 - Here we goooo.
+
+def highest_score_from(words)
+    winning_hash = {
+        word: "", 
+        score: 0
+    }
+    words.each do |word|
+        if score_word(word) > winning_hash[:score]
+            winning_hash[:word] = word
+            winning_hash[:score] = score_word(word)
+        elsif score_word(word) == winning_hash[:score]
+            if word.length == 10 && winning_hash[:word].length != 10
+                winning_hash[:word] = word 
+            elsif word.length < winning_hash[:word].length && winning_hash[:word].length != 10
+                winning_hash[:word] = word
+            end
+        end
+    end
+    return winning_hash
+end
