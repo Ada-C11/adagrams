@@ -127,9 +127,5 @@ end
 
 def is_in_english_dict?(input)
   dictionary = CSV.read("assets/dictionary-english.csv", headers: true).to_a.flatten
-  if dictionary.any?(input)
-    return true
-  else
-    return false
-  end
+  return dictionary.any?(input) ? true : false
 end
