@@ -1,3 +1,5 @@
+require "csv"
+
 def draw_letters
   alphabet = ["a", "a", "a", "a", "a", "a", "a", "a", "a", "b", "b", "c", "c", "d", "d", "d", "d", "e", "e", "e", "e", "e", "e", "e", "e", "e", "e", "e", "e", "f", "f", "g", "g", "g", "h", "h", "i", "i", "i", "i", "i", "i", "i", "i", "i", "j", "k", "l", "l", "l", "l", "m", "m", "n", "n", "n", "n", "n", "n", "o", "o", "o", "o", "o", "o", "o", "o", "p", "p", "q", "r", "r", "r", "r", "r", "r", "s", "s", "s", "s", "t", "t", "t", "t", "t", "t", "u", "u", "u", "u", "v", "v", "w", "w", "x", "y", "y", "z"]
   letters = []
@@ -13,7 +15,6 @@ def uses_available_letters?(input, letters_in_hand)
     index = letters_in_hand.index(l)
     if letters_in_hand.index(l) != nil
       letters_in_hand.delete_at(index)
-      # return true
     else
       return false
     end
@@ -51,57 +52,47 @@ def score_word(word)
     "z" => 10,
   }
 
-  #   split_word = word.downcase.split(//)
-  #   word_value_array = []
-  #   if word < 7
-  #   split_word.each do |letter|
-  #     word_value_array << letters_values[letter]
-  #   end
-  #   return word_value_array.reduce(:+)
-  # elsif word >= 7
-  #   split_word.each do |letter|
-  #     word_value_array << letters_values[letter]
-  #   end
-  #   return word_value_array.reduce(:+) + 8
-
   split_word = word.downcase.split(//)
-  word_value_array = []
+  word_value = []
   split_word.each do |letter|
-    word_value_array << letters_values[letter]
+    word_value << letters_values[letter]
   end
   if word.length < 7
-    score = word_value_array.reduce(:+)
+    score = word_value.reduce(:+)
   elsif word.length == 0
     score = 0
   else
-    score = word_value_array.reduce(:+) + 8
+    score = word_value.reduce(:+) + 8
   end
 
   return score.to_i
 end
 
 def highest_score_from(words)
-  score_array = []
-  score_hash = {} #words => score_array
-
-  words.each do |word|
-    score_array << score_word(word)
-  end
-  # score_hash.keys = words
-  # score_hash.values = score_array
-
-  # max_score = score_array.max
-  # index = score_array.index(max_score)
-
-  # max_pairs = score_array.select { |k, v| v == max_score }
-  # max_pairs.each do |k, v|
-  #   puts "Person #{k}'s vehicle."
-  #   most_economical_vehicle = v
-  # end
-
   best_word = {
-    word: words[index],
-    score: max_score,
+    word: "",
+    score: 0,
   }
+  words.each do |word|
+    score = score_word(word)
+    if score > best_word[:score]
+      best_word[:score] = score
+      best_word[:word] = word
+    elsif score == best_word[:score]
+      if word.length == 10 && best_word[:word].length != 10
+        best_word[:word] = word
+      elsif (word.length < best_word[:word].length) && (best_word[:word].length != 10)
+        best_word[:word] = word
+      end
+    end
+  end
+
   return best_word
+end
+
+def is_in_english_dict?(input)
+  CSV.open("assets/dictionary-english.csv", "r").each do |word|
+    return true if word.include?(input)
+  end
+  return false
 end
