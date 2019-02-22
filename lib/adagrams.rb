@@ -73,21 +73,31 @@ def highest_score_from(words)
   end
   highest_score = word_scores.max
   highest_score_hash = words_scores_hash.select { |k, v| v == highest_score }
-  # highest_hash = words_scores_hash.max_by { |k, v| v }
+
+  winning_word = highest_score_hash.values
+  result = {word: winning_word[0], score: highest_score}
 
   if highest_score_hash.length > 1
-    winner = 0
+    winner = {}
     keys = highest_score_hash.keys
     lengths = keys.map {|key| key.length}
     if lengths.include? 10 == true
-      winner = highest_score_hash.select{|k,v| v == 10}
+      winner = {word: keys[lengths.find_index(10)], score: highest_score}
+      
+      #highest_score_hash.find{|k,v| v == 10}.first
     else
-      winner = keys.min_by {|key| key.length}
+      min = keys.min_by {|key| key.length}
+      winner = {word: min, score: highest_score}
+      #winner = highest_score_hash.find{|k,v| k == min}.first
     end
     highest_score_hash = winner
   end
-  return highest_score_hash
+  
+  result = highest_score_hash
+
+  return result
+
 end
 
-test = ["quail", "dog", "zuail", "cat", 'BBBBBB', 'AAAAAAAAAA']
+test = ['X', 'XX', 'XXX', 'XXXX']
 puts highest_score_from(test)
