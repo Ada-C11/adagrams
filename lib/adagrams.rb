@@ -1,7 +1,5 @@
 require "pry"
 
-# populating letter pool
-
 def draw_letters
   letter_distribution = {
     "a" => 9,
@@ -125,6 +123,5 @@ def highest_score_from(words)
       end
     end
   end
-  # puts "The word with the highest score is: #{winning_word}"
   return winning_word
 end
