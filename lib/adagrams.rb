@@ -63,6 +63,15 @@ end
 # puts score
 
 # WAVE 4
+def tie_breaker(word, current_best, list)
+  # Does the word have 10 letters?
+  if word.length == 10 || word.length < current_best || list.index(word) < list.index(current_best)
+    current_best = word
+  end
+
+  return current_best
+end
+
 def highest_score_from_words(words)
 
   # What is each word's score?
@@ -91,16 +100,7 @@ end
 
 # Make a tie-breaking method!
 
-# Does the word have 10 letters?
-# Yes - DONE
-# No - move on to the next statement
-
-# (Which word has the fewest letters?)
-# Is word.length less than best_word?
-# Yes - New best word!
-# No - Nothing.  Move onto the next word.
-
 # Which word was supplied first?
 # Is word's index less than best word's index?
 # Yes - New best word!
-# No - Nothing.  Move onto the next word.
+# No - Nothing.  Best word remains unchanged.
