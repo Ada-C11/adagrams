@@ -108,21 +108,21 @@ def score_word(word)
   return total_points
 end
 
-def highest_score_from_words(words)
+def highest_score_from(words)
   highest_score = 0
   winning_word = {:word => "", :score => 0}
   words.each do |word|
     if score_word(word) > highest_score
       highest_score = score_word(word)
-      winning_word[:word] = word
+      winning_word[:word] = word.upcase
       winning_word[:score] = highest_score
     elsif score_word(word) == highest_score
       if word.length == 10
-        winning_word[:word] = word
-      elsif word.length < winning_word[:word].length
-        winning_word[:word] = word
-      elsif word.length == winning_word[:word].length
-        break
+        winning_word[:word] = word.upcase
+      elsif (word.length < winning_word[:word].length) && (winning_word[:word].length != 10)
+        winning_word[:word] = word.upcase
+        # elsif word.length == winning_word[:word].length
+        #   break
       end
     end
   end
