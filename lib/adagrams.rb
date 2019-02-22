@@ -53,10 +53,11 @@ def score_word(word)
   }
 
   split_word = word.downcase.split(//)
-  word_value = []
-  split_word.each do |letter|
-    word_value << letters_values[letter]
+
+  word_value = split_word.map do |letter|
+    letters_values[letter]
   end
+
   if word.length < 7
     score = word_value.reduce(:+)
   elsif word.length == 0
