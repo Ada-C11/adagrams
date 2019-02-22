@@ -1,4 +1,5 @@
 require_relative 'lib/adagrams'
+require 'pry'
 
 def display_welcome_message
   puts "Welcome to Adagrams!"
