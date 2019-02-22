@@ -94,13 +94,13 @@ def highest_score_from(words)
   words.each do |word|
     scored_words << {:word => word, :score => score_word(word)}
   end
+
   highest_scored_word = scored_words.max_by do |scored_words|
     scored_words[:score]
   end
+
   highest_score = highest_scored_word[:score]
-
   highest_score_array = []
-
   scored_words.each do |word|
     if word[:score] == highest_score
       highest_score_array.push(word)
