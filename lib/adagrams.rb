@@ -1,5 +1,14 @@
+require "csv"
+require "smarter_csv"
+
 def draw_letters
-  letters_hash = {"A" => 9, "B" => 2, "C" => 2, "D" => 4, "E" => 12, "F" => 2, "G" => 3, "H" => 2, "I" => 9, "J" => 1, "K" => 1, "L" => 4, "M" => 2, "N" => 6, "O" => 8, "P" => 2, "Q" => 1, "R" => 6, "S" => 4, "T" => 6, "U" => 4, "V" => 2, "W" => 2, "X" => 1, "Y" => 2, "Z" => 1}
+  letters_hash = {
+    "A" => 9, "B" => 2, "C" => 2, "D" => 4, "E" => 12, "F" => 2,
+    "G" => 3, "H" => 2, "I" => 9, "J" => 1, "K" => 1, "L" => 4,
+    "M" => 2, "N" => 6, "O" => 8, "P" => 2, "Q" => 1, "R" => 6,
+    "S" => 4, "T" => 6, "U" => 4, "V" => 2, "W" => 2, "X" => 1,
+    "Y" => 2, "Z" => 1,
+  }
 
   letters = []
   letters_hash.each { |letter, frequency|
@@ -74,4 +83,15 @@ def highest_score_from(words)
     end
   end
   return {:word => candidate, :score => max_score}
+end
+
+def is_in_english_dict?(input)
+  dictionary = Array.new
+  CSV.foreach("/Users/elisepham/Ada/adagrams/assets/dictionary-english.csv", headers: true) do |row|
+    if row[0].length == 1
+      dictionary << row[0]
+    end
+  end
+
+  return dictionary.include?(input)
 end
