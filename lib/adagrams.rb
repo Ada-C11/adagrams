@@ -65,20 +65,22 @@ def highest_score_from(words)
   end
 
   max_words = highest_score_hash.select { |k, v| v == highest_score_hash.values.max }
-
   winner = {}
-  max_length = 0
-
+  
+  
   # tiebreakers
-  if max_words.length > 1
-    max_words.each do |k, v|
-      if k.length > max_length
-        max_length = k.length
-      end
-      binding.pry
-      puts max_length
-    end
+  if max_words.length == 1
+    winner = max_words
+    puts winner
+  else
+    min_length_winner = max_words.min_by {|k,v| k.length}
+    # winner = min_length_winner.to_h
+    winner[:word] = min_length_winner[0]
+    winner[:score] = min_length_winner[1]
+    puts winner
+   
   end
 end
 
 highest_score_from(["banana", "bc", "orange"])
+
