@@ -81,12 +81,15 @@ def draw_letters
 end
 
 def uses_available_letters?(input, letters_in_hand)
+  input.upcase!
+  popping_array = letters_in_hand.clone
   check = true
   input.split("").each do |char|
-    if !letters_in_hand.include?(char)
+    if !popping_array.include?(char)
       check = false
     else
-      letters_in_hand.delete(char)
+      index = popping_array.find_index(char)
+      popping_array.delete_at(index)
     end
   end
   return check
@@ -128,6 +131,7 @@ end
 
 def is_in_english_dict?(input)
   dictionary = CSV.read("assets/dictionary-english.csv")
+  input.downcase!
   word_in_array = [input]
   if dictionary.include? word_in_array
     return true
