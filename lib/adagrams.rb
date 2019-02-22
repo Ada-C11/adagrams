@@ -82,8 +82,6 @@ def uses_available_letters?(input, letters_in_hand)
   end
 end
 
-uses_available_letters?(user_input, letters_in_hand)
-
 def score_word(word)
   word_array = word.upcase.split(//)
   score = 0
