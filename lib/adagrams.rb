@@ -23,12 +23,10 @@ def uses_available_letters?(input, letters_in_hand)
   end
   if size == input_array.length
     return true
-  else 
+  else
     return false
   end
-
 end
-uses_available_letters?('dog', ["D","O","G","x","X","x","X""x","X"])
 
 def score_word(word)
   points = 0
@@ -65,43 +63,34 @@ def highest_score_from(words)
     highest_score[word] = score_word(word)
   end
 
-  max_words = {
+  score_word = {
     words: [],
     score: [],
   }
 
   highest_score.each do |k, v|
     if v == highest_score.values.max
-      max_words[:words] << k
-      max_words[:score] = v
+      score_word[:words] << k
+      score_word[:score] = v
     end
   end
-  winner = {}
+
+  best_word = {}
 
   min_length = 10
-  if max_words[:words].length == 1
-    winner = max_words
+  if score_word[:words].length == 1
+    best_word = score_word
   else
-    max_words[:words].each do |word|
+    score_word[:words].each do |word|
       if word.length == 10
-        winner[:word] = word
-        winner[:score] = max_words[:score]
+        best_word[:word] = word
+        best_word[:score] = score_word[:score]
       elsif word.length < min_length
         min_length = word.length
-        winner[:word] = word
-        winner[:score] = max_words[:score]
+        best_word[:word] = word
+        best_word[:score] = score_word[:score]
       end
     end
   end
-  return winner
+  return best_word
 end
-
-# test_0001_returns true if the submitted letters are valid against the drawn letters FAIL
-
-#  test_0002_accurately finds best scoring word even if not sorted FAIL (0.00s)
-
-#  test_0001_returns a hash that contains the word and score of best word in an array FAIL (0.00s)
-
-#  test_0007_in case of tied score and same length words, prefers the first word FAIL (0.00s)
-
-#   test_0005_in case of tied score, prefers most the word with 10 letters FAIL (0.00s)
