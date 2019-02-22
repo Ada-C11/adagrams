@@ -63,38 +63,26 @@ end
 
 letters_in_hand = draw_letters
 
-puts letters_in_hand
-
-puts "What word would you like to create?"
 user_input = gets.chomp
 
-# puts "#{input_array}"
-
 def uses_available_letters?(input, letters_in_hand)
-  puts input
-  puts letters_in_hand
   input_array = input.upcase.split(//)
+
   if input_array.length <= 10
     input_array.each do |letter|
       if !letters_in_hand.include?(letter)
-        print "FALSE"
         return false
-        # else
-        #   return true
       end
 
       letters_in_hand.delete_at(letters_in_hand.index(letter))
     end
-    print "true"
     return true
   else
-    print "false"
     return false
   end
 end
 
 uses_available_letters?(user_input, letters_in_hand)
-puts "new array :#{letters_in_hand}"
 
 def score_word(word)
   word_array = word.upcase.split(//)
@@ -146,7 +134,6 @@ def highest_score_from(words)
     scores << score_word(word)
   end
 
-  # winning_word = words[scores.index(scores.max)]
   max_score = scores.max
   n = scores.length
   winning_word_array = []
