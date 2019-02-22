@@ -16,51 +16,51 @@ def draw_letters
 end
 
 puts "Using the following letters, create an Adagram"
-test = draw_letters
-puts test
+hand = draw_letters
+puts hand
 
 puts "What is your Adagram?:"
-Adagram_input = gets.chomp.to_s.upcase
+adagram_input = gets.chomp.to_s.upcase
 
 def uses_available_letters?(input, letters_in_hand)
-  input_array = input.chars
+  letters_array = input.chars
   i = 0
   result = true
-  while i < input_array.length
+  while i < letters_array.length
     if letters_in_hand.include?(input[i]) == true
       letters_in_hand.delete(input[i])
     else
       result = false
     end
-    i = i + 1
+    i += 1
   end
   return result
 end
 
-puts uses_available_letters?(Adagram_input, test)
+puts uses_available_letters?(adagram_input, hand)
 
 SCORE_HASH = {"A" => 1, "E" => 1, "I" => 1, "O" => 1, "U" => 1, "L" => 1, "N" => 1, "R" => 1, "S" => 1, "T" => 1, "D" => 2, "G" => 2, "B" => 3, "C" => 3, "M" => 3, "P" => 3, "F" => 4, "H" => 4, "V" => 4, "W" => 4, "Y" => 4, "K" => 5, "J" => 8, "X" => 8, "Q" => 10, "Z" => 10}
 
 def score_word(word)
-  points = 0
-  if word == ""
+  score = 0
+  if score == ""
     points = 0
   else
     letters = word.upcase.chars
-    points = 0
+    score = 0
     letters.each do |letter|
-      points += SCORE_HASH[letter]
+      score += SCORE_HASH[letter]
     end
 
     if letters.length > 6
-      points = points + 8
+      score += 8
     end
   end
 
-  return points
+  return score
 end
 
-puts score_word(Adagram_input)
+puts score_word(adagram_input)
 
 def highest_score_from(words)
   word_scores = words.map do |word|
@@ -77,19 +77,20 @@ def highest_score_from(words)
   highest_score_hash = words_scores_hash.select { |k, v| v == highest_score }
 
   if highest_score_hash.length > 1
-    winner = {}
+    tie_winner = {}
     keys = highest_score_hash.keys
-
     lengths = keys.map { |key| key.length }
+
     if lengths.include?(10) == true
       tie_winner = {keys[lengths.find_index(10)] => highest_score}
     else
-      min = keys.min_by { |key| key.length }
-      tie_winner = {min => highest_score}
+      shortest_word = keys.min_by { |key| key.length }
+      tie_winner = {shortest_word => highest_score}
     end
+
     highest_score_hash = tie_winner
   end
-
+  # reformats hash to match the results in test
   winning_word = highest_score_hash.keys
   win_formatted = {word: winning_word[0], score: highest_score}
 
@@ -98,9 +99,9 @@ end
 
 def is_in_english_dict?(input)
   input_in_dictionary = false
-  CSV.foreach("../assets/dictionary-english.csv") do |row|
-    row.each do |word|
-      if word == input
+  CSV.foreach("../assets/dictionary-english.csv") do |word_array|
+    word_array.each do |word|
+      if word == input.downcase
         input_in_dictionary = true
       end
     end
@@ -108,4 +109,4 @@ def is_in_english_dict?(input)
   return input_in_dictionary
 end
 
-puts is_in_english_dict?("yaw")
+puts is_in_english_dict?(adagram_input)
