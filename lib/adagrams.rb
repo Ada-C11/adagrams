@@ -1,5 +1,3 @@
-
-
 def draw_letters
   letter_pool = []
   number_of_letters = [9, 2, 2, 3, 12, 2, 3, 2, 9, 1, 1, 4, 2, 6, 8, 2, 1, 6, 4, 6, 4, 2, 2, 1, 2, 1]
@@ -76,29 +74,22 @@ def highest_score_from(words)
   highest_score = word_scores.max
   highest_score_hash = words_scores_hash.select { |k, v| v == highest_score }
 
-  winning_word = highest_score_hash.values
-  result = {word: winning_word[0], score: highest_score}
-
   if highest_score_hash.length > 1
     winner = {}
     keys = highest_score_hash.keys
-    lengths = keys.map { |key| key.length }
-    if lengths.include? 10 == true
-      winner = {word: keys[lengths.find_index(10)], score: highest_score}
 
-      #highest_score_hash.find{|k,v| v == 10}.first
+    lengths = keys.map { |key| key.length }
+    if lengths.include?(10) == true
+      tie_winner = {keys[lengths.find_index(10)] => highest_score}
     else
       min = keys.min_by { |key| key.length }
-      winner = {word: min, score: highest_score}
-      #winner = highest_score_hash.find{|k,v| k == min}.first
+      tie_winner = {min => highest_score}
     end
-    highest_score_hash[winner[0]] = winner[1]
+    highest_score_hash = tie_winner
   end
 
-  result = highest_score_hash
+  winning_word = highest_score_hash.keys
+  win_formatted = {word: winning_word[0], score: highest_score}
 
-  return result
+  return win_formatted
 end
-
-test = ["X", "XX", "XXX", "XXXX"]
-puts highest_score_from(test)
