@@ -100,28 +100,43 @@ def score_word(word)
   word_array = word.upcase.split(//)
   score = 0
 
+  letter_scores = {
+    "A" => 1,
+    "E" => 1,
+    "I" => 1,
+    "O" => 1,
+    "U" => 1,
+    "L" => 1,
+    "N" => 1,
+    "R" => 1,
+    "S" => 1,
+    "T" => 1,
+    "D" => 2,
+    "G" => 2,
+    "B" => 3,
+    "C" => 3,
+    "M" => 3,
+    "P" => 3,
+    "F" => 4,
+    "H" => 4,
+    "V" => 4,
+    "W" => 4,
+    "Y" => 4,
+    "K" => 5,
+    "J" => 8,
+    "X" => 8,
+    "Q" => 10,
+    "Z" => 10,
+  }
+
   word_array.each do |letter|
-    if letter == "A" || letter == "E" || letter == "I" || letter == "O" || letter == "U" || letter == "L" || letter == "N" || letter == "R" || letter == "S" || letter == "T"
-      score += 1
-    elsif letter == "D" || letter == "G"
-      score += 2
-    elsif letter == "B" || letter == "C" || letter == "M" || letter == "P"
-      score += 3
-    elsif letter == "F" || letter == "H" || letter == "V" || letter == "W" || letter == "Y"
-      score += 4
-    elsif letter == "K"
-      score += 5
-    elsif letter == "J" || letter == "X"
-      score += 8
-    elsif letter == "Q" || letter == "Z"
-      score += 10
-    end
+    score += letter_scores[letter]
   end
 
   if word_array.length > 6
     score += 8
   end
-  puts "score: #{score}"
+
   return score
 end
 
