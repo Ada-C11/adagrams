@@ -44,12 +44,3 @@ def score_word(word)
     end
     return my_score
 end
-# drawn_letters = draw_letters
-# puts "Your 10 letters are #{ drawn_letters }."
-
-# puts "Please make the best work with the letters you were dealt."
-#     new_word = gets.chomp.to_s.upcase
-
-# uses_available_letters?(new_word, drawn_letters)
-
-# score_word(new_word)
