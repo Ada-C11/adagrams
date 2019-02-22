@@ -57,30 +57,54 @@ def score_word(word)
 end
 
 def highest_score_from(words)
-  highest_score_hash = Hash.new(0)
   highest_score = Hash.new(0)
 
   words.each do |word|
-    highest_score_hash[word] = score_word(word)
+    highest_score[word] = score_word(word)
   end
 
-  max_words = highest_score_hash.select { |k, v| v == highest_score_hash.values.max }
-  winner = {}
-  
-  
-  # tiebreakers
-  if max_words.length == 1
-    winner = max_words
-    puts winner
-  else
-    min_length_winner = max_words.min_by {|k,v| k.length}
-    # winner = min_length_winner.to_h
-    winner[:word] = min_length_winner[0]
-    winner[:score] = min_length_winner[1]
-    puts winner
-   
+  max_words = {
+    words: [],
+    score: [],
+  }
+
+  highest_score.each do |k, v|
+    if v == highest_score.values.max
+      max_words[:words] << k
+      max_words[:score] = v
+    end
   end
+
+  puts max_words
+
+  if max_words[:words].length == 1
+    winner = max_words
+  else
+    max_words[:words].each do |word|
+      if word.length == 10
+        winner[:word] = word
+        winner[:score] = max_words[:score]
+      else
+      end
+    end
+  end
+  winner = {}
+
+  # tiebreakers
+  # if max_words.length == 1
+  #   winner = {
+  #     word: max_words.keys[0],
+  #     score: max_words.values[0],
+  #   }
+  #   puts winner
+  # elsif max_words.== 10
+  # else
+  #   min_length_winner = max_words.min_by { |k, v| k.length }
+  #   # winner = min_length_winner.to_h
+  #   winner[:word] = min_length_winner[0]
+  #   winner[:score] = min_length_winner[1]
+  #   puts winner
+  # end
 end
 
-highest_score_from(["banana", "bc", "orange"])
-
+highest_score_from(["bananaa", "aaaaaaaaaa", "ora"])
