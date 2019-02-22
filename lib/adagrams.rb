@@ -13,19 +13,16 @@ end
 
 def uses_available_letters?(input, letters_in_hand)
   size = 0
+  input_array = input.upcase.split(//)
 
-  input.downcase.split(//).each_with_index do |letter, index|
-    if letters_in_hand.include?(letter)
-      size += 1
-      letters_in_hand.delete(index)
+  letters_in_hand.each input.upcase.split(//) do |letter|
+    if input_array.include?(letter)
+      # input_array delete
+      
     end
   end
 
-  if size == input.length
-    return true
-  else
-    return false
-  end
+  input_array == 0 ? return true : return false
 end
 
 def score_word(word)
@@ -75,7 +72,7 @@ def highest_score_from(words)
     end
   end
   winner = {}
-  
+
   min_length = 10
   if max_words[:words].length == 1
     winner = max_words
@@ -94,4 +91,12 @@ def highest_score_from(words)
   return winner
 end
 
-puts highest_score_from(["banana", "aaaaaaaaaa", "bcd", "cbd", "ora"])
+# test_0001_returns true if the submitted letters are valid against the drawn letters FAIL
+
+#  test_0002_accurately finds best scoring word even if not sorted FAIL (0.00s)
+
+#  test_0001_returns a hash that contains the word and score of best word in an array FAIL (0.00s)
+
+#  test_0007_in case of tied score and same length words, prefers the first word FAIL (0.00s)
+
+#   test_0005_in case of tied score, prefers most the word with 10 letters FAIL (0.00s)
