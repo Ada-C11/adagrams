@@ -124,3 +124,37 @@ def score_word(word)
   puts "score: #{score}"
   return score
 end
+
+def highest_score_from(words)
+  scores = []
+  words.each do |word|
+    scores << score_word(word)
+  end
+
+  # winning_word = words[scores.index(scores.max)]
+  max_score = scores.max
+  n = scores.length
+  winning_word_array = []
+
+  (0..n - 1).each do |n|
+    if scores[n] == max_score
+      winning_word_array << words[n]
+    end
+  end
+
+  winning_word = ""
+  winning_word_array.each do |word|
+    if word.length == 10
+      winning_word = word
+      break
+    else
+      winning_word = winning_word_array.min_by { |word| word.length }
+    end
+  end
+
+  winning_word_hash = {}
+  winning_word_hash[:word] = winning_word
+  winning_word_hash[:score] = max_score
+
+  return winning_word_hash
+end
