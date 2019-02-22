@@ -1,3 +1,4 @@
+# draws letters into hand
 def draw_letters
   letter_distribution =
     {
@@ -16,12 +17,14 @@ def draw_letters
   return hand
 end
 
+# checks user anagram against available letters in hand
 def uses_available_letters?(input, letters_in_hand)
   word_array = []
   input.each_char { |letter| word_array << letter }
   return word_array & letters_in_hand == word_array
 end
 
+# scores word guessed and returns word score
 def score_word(word)
   letter_value =
     {
@@ -48,6 +51,7 @@ def score_word(word)
   return total
 end
 
+# selects and returns highest scoring word and its score
 def highest_score_from(words)
   best_word = ""
   best_score = 0
