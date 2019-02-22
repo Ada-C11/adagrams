@@ -13,19 +13,19 @@ end
 
 def uses_available_letters?(input, letters_in_hand)
   size = 0
-
   input.downcase.split(//).each_with_index do |letter, index|
     if letters_in_hand.include?(letter)
       size += 1
       letters_in_hand.delete(index)
     end
   end
-
+  
   if size == input.length
     return true
   else
     return false
   end
+  
 end
 
 def score_word(word)
@@ -94,4 +94,4 @@ def highest_score_from(words)
   return winner
 end
 
-puts highest_score_from(["banana", "aaaaaaaaaa", "bcd", "cbd", "ora"])
+puts highest_score_from(["banana", "nabana", "ora"])
