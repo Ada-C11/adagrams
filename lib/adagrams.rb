@@ -1,6 +1,3 @@
-
-require "awesome_print"
-
 def draw_letters
   letter_pool = []
   9.times do
