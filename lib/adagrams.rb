@@ -51,37 +51,35 @@ def score_word(word)
   return score.sum
 end
 
-# def highest_score_from(words)
-#   scored_words = []
+def highest_score_from(words)
+  scored_words = []
 
-#   words.each do |played_word|
-#     played_word = played_word.upcase
-#     scored_words <<
-#     {
-#       each_word: played_word, each_score: score_word(played_word),
-#     }
-#   end
+  words.each do |played_word|
+    played_word = played_word.upcase
+    scored_words <<
+    {
+      each_word: played_word, each_score: score_word(played_word),
+    }
+  end
 
-#   high_score = scored_words.max_by { |point| point[:each_score] }[:each_score]
-#   highest_scored_words = scored_words.select { |semi_finalist| semi_finalist[:each_score] == high_score }.map { |semi_finalist| semi_finalist[:each_word] }
+  high_score = scored_words.max_by { |point|
+    point[:each_score]
+  }[:each_score]
 
-#   if highest_scored_words.length == 1
-#     return ultimate_winner = {word: highest_scored_words[0], score: high_score}
-#   elsif highest_scored_words.length > 1
-#     highest_scored_words.each do |ten_char_word|
-#       if ten_char_word.length == 10
-#         ultimate_winner = {word: highest_scored_words.max_by { |highest| highest.length }, score: high_score}
-#         return ultimate_winner
-#       else
-#         ultimate_winner = {word: highest_scored_words.min_by { |highest| highest.length }, score: high_score}
-#         return ultimate_winner
-#       end
-#     end
-#   end
-# end
+  highest_scored_words = scored_words.select { |semi_finalist|
+    semi_finalist[:each_score] == high_score
+  }.map { |semi_finalist|
+    semi_finalist[:each_word]
+  }
 
-# input = ["BBBBBB", "AAAAAAAAAA"]
-# p highest_score_from(input)
+  if highest_scored_words.length == 1
+    return ultimate_winner = {word: highest_scored_words[0], score: high_score}
+  elsif highest_scored_words.length > 1
+    winner = highest_scored_words.find { |ten| ten.length == 10 }
+    return {word: winner, score: high_score} if winner
+  end
+  return {word: highest_scored_words.min_by { |highest| highest.length }, score: high_score}
+end
 
 # def is_in_english_dict?(input)
 #   require "csv"
