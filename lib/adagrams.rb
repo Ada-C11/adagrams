@@ -43,30 +43,27 @@ def draw_letters
 end
 
 def uses_available_letters?(input, letters_in_hand)
-  # if input.length > 10
-  #   puts "Too many letters! Try again: "
-  #   input = gets.chomp.downcase
-  # end
-  # until (input.chars.all? { |char| letters_in_hand.include? char })
-  #   puts "Don't work, try again: "
-  #   input = gets.chomp.downcase
-  # end
-  n = 0
-  unless input.chars.length == n
-    input.chars.each do |letter|
-      hand_count = letters_in_hand.count(letter)
-      input_count = input.count(letter)
-      if hand_count >= input_count
-        n += 1
-      else
-        puts "no"
-        input = gets.chomp.downcase
-        #accept input, start loop over
-      end
+  if input.length > 10
+    puts "Too many letters! Try again: "
+    input = gets.chomp.downcase
+  end
+  if (input.chars.all? { |char| letters_in_hand.include? char })
+    valid_input = true
+  else
+    valid_input = false
+  end
+
+  input.chars.each do |letter|
+    hand_count = letters_in_hand.count(letter)
+    input_count = input.count(letter)
+    if hand_count >= input_count
+      valid_input = true
+    else
+      valid_input = false
+      break
     end
   end
-  # puts "Congrats, your adagram is: #{input}"
-  return input
+  return valid_input
 end
 
 # def score_word(word)
