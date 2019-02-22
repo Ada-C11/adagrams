@@ -28,19 +28,21 @@ def uses_available_letters?(input, letters_in_hand)
     end
 end
 
+
 def score_word(word)
     letter_points = {
         "A" => 1, "B" => 3, "C" => 3, "D" => 2, "E" => 1, "F" => 4, "G" => 2, "H" => 4, "I" => 1, "J" => 8, "K" => 5, "L" => 1, "M" => 3, "N" => 1, "O" => 1, "P" => 3, "Q"=> 10, "R"=> 1, "S" => 1, "T" => 1, "U" => 1, "V" => 4, "W" => 4, "X" => 8, "Y" => 4, "Z" => 10
     }
-    word_to_score = word.split(//)
+    word_to_score = word.upcase.split(//)
     score = word_to_score.map do |each_letter|
         letter_points[each_letter]
     end
-    my_score = score.inject do |total_score, letter_value|
+    my_score = score.inject(0) do |total_score, letter_value|
         total_score + letter_value
     end
     if word_to_score.length > 6
         my_score += 8
     end
+
     return my_score
 end
