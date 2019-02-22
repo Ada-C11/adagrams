@@ -9,6 +9,7 @@ sample = draw_letters
 # print sample
 
 def uses_available_letters?(input, letters_in_hand)
+  letters_in_hand = letters_in_hand.clone
   input = input.upcase
   input.each_char.all? do |char|
     if letters_in_hand.include?(char)
@@ -19,9 +20,6 @@ def uses_available_letters?(input, letters_in_hand)
     end
   end
 end
-
-# user_input = gets.chomp.upcase
-# p uses_available_letters?(user_input, sample)
 
 def score_word(word)
   score = []
@@ -81,12 +79,12 @@ def highest_score_from(words)
   return {word: highest_scored_words.min_by { |highest| highest.length }, score: high_score}
 end
 
-# def is_in_english_dict?(input)
-#   require "csv"
-#   dictionary_array = []
-#   CSV.foreach("assets/dictionary-english.csv") do |row|
-#     dictionary_array << row
-#   end
-#   dictionary_array.flatten!
-#   return dictionary_array.include?(input) ? true : false
-# end
+def is_in_english_dict?(user_input_word)
+  require "csv"
+  dictionary_array = []
+  CSV.foreach("assets/dictionary-english.csv") do |row|
+    dictionary_array << row
+  end
+  dictionary_array.flatten!
+  return dictionary_array.include?(user_input_word) ? true : false
+end
