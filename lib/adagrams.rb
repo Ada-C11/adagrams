@@ -37,3 +37,22 @@ def score_word(word)
   end
   return score
 end
+
+def highest_score_from(words)
+  scores = []
+  words.each do |word|
+    scores << { word: word,
+               score: score_word(word) }
+  end
+  temp = scores[0]
+  scores.each do |current|
+    if temp[:score] < current[:score]
+      temp = current
+    elsif temp[:score] == current[:score]
+      if (current[:word].length == 10 || current[:word].length < temp[:word].length) && temp[:word].length != 10
+        temp = current
+      end
+    end
+  end
+  return temp
+end
