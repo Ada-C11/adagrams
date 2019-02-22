@@ -107,6 +107,8 @@ end
 
 #   word.each_char do |letter|
 #     total_points += (score_chart[letter])
+
+#   end
 #   return total_points
 # end
 
