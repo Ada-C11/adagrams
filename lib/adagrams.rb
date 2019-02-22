@@ -122,11 +122,50 @@ def score_word(word)
   return total_score
 end
 
-# ^^^^^^ If we have time, change input to global variabe. Assign word in score_word = input. Update as needed. ^^^^^^^^^^^^^^^
+# ^^^^^^ If we have time, change input to global variable. Assign word in score_word = input. Update as needed. ^^^^^^^^^^^^^^^
 # FIX THE LOOP COUNT SKIPPING IF THERE ARE MULTIPLE INSTANCES OF THE SAME LETTER (example: staarfish, set includes only one A)
 
-letters_in_hand = ["H", "S", "I", "F", "R", "A", "S", "T", "W"]
-p uses_available_letters?("starfish", letters_in_hand)
-score = score_word("starfish")
-puts score
 # #["H", "S", "I", "F", "R", "A", "S", "T"]
+
+def highest_score_from(words)
+  words_scores_array = []
+  words.each do |this_word|
+    this_score = score_word(this_word)
+    words_scores_array << {
+      word: this_word,
+      score: this_score,
+    }
+  end
+
+  scores_array = words_scores_array.map do |this_hash|
+    this_hash[:score]
+  end
+  max_score = scores_array.max
+  winning_words = []
+  winning_word = {}
+  words_scores_array.each do |this_word_score|
+    if max_score == this_word_score[:score]
+      winning_words << this_word_score[:word]
+    end
+  end
+  # if there's a tie
+  if winning_words.length > 1
+    winning_words.each do |this_word|
+      if this_word.length > 9
+        winning_word[:word] = this_word
+      else
+        winning_word[:word] = winning_words.min_by do |nested_word|
+          nested_word.length
+        end
+      end
+    end
+    winning_word[:score] = max_score.to_i
+  end
+end
+
+# letters_in_hand = ["H", "S", "I", "F", "R", "A", "S", "T", "W"]
+# p uses_available_letters?("starfish", letters_in_hand)
+# score = score_word("starfish")
+
+# puts winning_words
+# puts winning_word
