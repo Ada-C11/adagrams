@@ -172,5 +172,10 @@ describe "Adagrams" do
       word = "cat"
       expect(is_in_english_dict?(word)).must_equal true
     end
+
+    it "returns false if word not in English dictionary" do
+      word = "qqq"
+      expect(is_in_english_dict?(word)).must_equal false
+    end
   end
 end
