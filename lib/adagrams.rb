@@ -1,4 +1,4 @@
-require 'csv'
+require "csv"
 
 def make_letter_pool(arr, letter, frequency)
   frequency.times do
@@ -125,8 +125,11 @@ def highest_score_from(words)
   return highest_scored_word
 end
 
-
 def is_in_english_dict?(input)
-  dictionary = CSV.read("assets/dictionary-english.csv", headers: true)
-  return dictionary.any? {|input| input} ? true : false
+  dictionary = CSV.read("assets/dictionary-english.csv", headers: true).to_a.flatten
+  if dictionary.any?(input)
+    return true
+  else
+    return false
+  end
 end
