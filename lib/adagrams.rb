@@ -45,6 +45,9 @@ scored = 0
 user_input_word.each_char do |letter|
 scored += SCORE_VALUE[letter.to_sym].to_i
 end
+if user_input_word.length > 6 
+  scored += 8
+end
 return scored 
 end
 
