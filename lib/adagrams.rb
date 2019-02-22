@@ -1,4 +1,4 @@
-require "csv"
+
 
 def draw_letters
   letter_pool = []
@@ -102,17 +102,3 @@ end
 
 test = ["X", "XX", "XXX", "XXXX"]
 puts highest_score_from(test)
-
-def is_in_english_dict?(input)
-  input_in_dictionary = false
-  CSV.foreach("../assets/dictionary-english.csv") do |row|
-    row.each do |word|
-      if word == input
-        input_in_dictionary = true
-      end
-    end
-  end
-  return input_in_dictionary
-end
-
-puts is_in_english_dict?("yaw")
