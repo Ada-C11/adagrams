@@ -56,14 +56,14 @@ def uses_available_letters?(input, letters_in_hand)
     input.chars.each do |letter|
       hand_count = letters_in_hand.count(letter)
       input_count = input.count(letter)
-      # if hand_count >= input_count
-      #   n += 1
-      # else
-      #   puts "no"
-      #   input = gets.chomp.downcase
-      #   #accept input, start loop over
-      # end
-    # end
+      if hand_count >= input_count
+        n += 1
+      else
+        puts "no"
+        input = gets.chomp.downcase
+        #accept input, start loop over
+      end
+    end
   end
   # puts "Congrats, your adagram is: #{input}"
   return input
