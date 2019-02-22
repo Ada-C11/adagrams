@@ -26,42 +26,69 @@ letter_quantities = {
   Y: 2,
   Z: 1,
 }
-@letter_pool = []
+$letter_pool = []
 letter_quantities.each do |letter, quantity|
   quantity.times do
-    @letter_pool << letter.to_s
+    $letter_pool << letter.to_s
   end
 end
-# p letter_pool
+# p $letter_pool
+
+$letter_scores = {
+  1 => ["A", "E", "I", "O", "U", "L", "N", "R", "S", "T"],
+  2 => ["D", "G"],
+  3 => ["B", "C", "M", "P"],
+  4 => ["F", "H", "V", "W", "Y"],
+  5 => ["K"],
+  8 => ["J", "X"],
+  10 => ["Q", "Z"],
+}
+
 # Wave 1
-# def draw_letters
-#   letters_in_hand = @letter_pool.sample(10)
-#   return letters_in_hand
-# end
+def draw_letters
+  letters_in_hand = $letter_pool.sample(10)
+  return letters_in_hand
+end
 
 # p draw_letters
 
 # Wave 2
 def uses_available_letters?(input, letters_in_hand)
   input = input.upcase.split("")
-  input_copy = []
-  input.each do |i|
-    input_copy << i.dup
-  end
+  #   input_copy = []
+  #   input.each do |i|
+  #     input_copy << i
+  #   end
+  input_copy = input.dup
+
+  # ^^^^^^^ SHOW THIS TO SOPHERY ^^^^^^^
 
   p input
 
   # Check if letters in the input are all in the letters_in_hand array
   i = 1
-  input.each do |letter|
+  input.each_with_index do |letter, input_index|
     puts "Loop count: #{i}"
     if letters_in_hand.include?(letter)
+      hand_index = 0
+      letters_in_hand.each_with_index do |letter_in_hand, index|
+        if letter == letter_in_hand
+          hand_index = index
+          break
+        end
+        hand_index += 1
+      end
       puts "This letter is: #{letter}"
       puts "Letters in hand before delete are: #{letters_in_hand}"
-      letters_in_hand.delete(letter)
+      letters_in_hand.delete_at(hand_index)
+      # ^^^^^ SHOW THIS TO SOPHERY ^^^^^^^
+      # try foo.delete_at(foo.index(4))
+      # in order to only delete one instance of a letter
+      # such as the S, when there are two S's in starfish
+      # maybe use this in one or both places where we use .delete
       puts "Letters in hand after delete are: #{letters_in_hand}"
       puts "Letters in input_copy before delete are: #{input_copy}"
-      input_copy.delete(letter)
+      input_copy.delete_at(0)
       puts "Letters in input_copy after delete are: #{input_copy}"
     end
     i += 1
@@ -73,6 +100,33 @@ def uses_available_letters?(input, letters_in_hand)
   end
 end
 
+# letters_in_hand = draw_letters
+# p uses_available_letters?("hi", letters_in_hand)
+
+# This method calculates a score for the word the user submits.
+def score_word(word)
+  total_score = 0
+  if word.length > 6
+    total_score += 8
+  end
+  this_word = word.upcase.split("")
+  # p this_word
+  this_word.each do |this_letter|
+    $letter_scores.each do |score, letter_array|
+      # p $letter_scores
+      if letter_array.include?(this_letter)
+        total_score += score
+      end
+    end
+  end
+  return total_score
+end
+
+# ^^^^^^ If we have time, change input to global variabe. Assign word in score_word = input. Update as needed. ^^^^^^^^^^^^^^^
+# FIX THE LOOP COUNT SKIPPING IF THERE ARE MULTIPLE INSTANCES OF THE SAME LETTER (example: staarfish, set includes only one A)
+
 letters_in_hand = ["H", "S", "I", "F", "R", "A", "S", "T", "W"]
 p uses_available_letters?("starfish", letters_in_hand)
-#["H", "S", "I", "F", "R", "A", "S", "T"]
+score = score_word("starfish")
+puts score
+# #["H", "S", "I", "F", "R", "A", "S", "T"]
