@@ -95,7 +95,7 @@ def score_word(word)
     "y" => 4,
     "z" => 10,
   }
-  word.downcase!
+  word = word.downcase
   if word.length > 6
     total_points = 8
   else
@@ -117,39 +117,15 @@ def highest_score_from(words)
       winning_word[:word] = word.upcase
       winning_word[:score] = highest_score
     elsif score_word(word) == highest_score
-      if word.length == 10
+      if word.length == 10 && !(word.length == winning_word[:word].length)
         winning_word[:word] = word.upcase
-      elsif (word.length < winning_word[:word].length) && (winning_word[:word].length != 10)
+      elsif word.length == 10 && (word.length == winning_word[:word])
+        winning_word[:word].downcase = winning_word[:word].downcase
+      elsif (word.length <= winning_word[:word].length) && (winning_word[:word].length != 10)
         winning_word[:word] = word.upcase
-        # elsif word.length == winning_word[:word].length
-        #   break
       end
     end
   end
   # puts "The word with the highest score is: #{winning_word}"
   return winning_word
 end
-
-########### Starting the game ############
-# puts "Insert number of players"
-# num_players = gets.chomp.to_i
-
-# player_results = []
-# num_players.times do
-#   player_word = {}
-#   draw_letters
-#   puts "\n\nInsert your Adagram: "
-#   input = gets.chomp.downcase
-#   uses_available_letters?(input, @hand)
-#   total_points = score_word(input)
-#   player_word[:word] = input
-#   player_word[:score] = total_points
-#   player_results << player_word
-# end
-
-# played_words = []
-# player_results.each do |word|
-#   played_words << word[:word]
-# end
-
-# highest_score_from_words(played_words)
