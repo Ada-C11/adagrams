@@ -1,4 +1,4 @@
-require_relative 'lib/adagrams'
+require_relative "lib/adagrams"
 
 def display_welcome_message
   puts "Welcome to Adagrams!"
@@ -6,7 +6,7 @@ end
 
 def display_drawn_letters(letters)
   puts "You have drawn the letters:"
-  puts letters.join(', ')
+  puts letters.join(", ")
 end
 
 def display_game_instructions
@@ -50,7 +50,7 @@ def run_game
 
     user_input_word = get_user_input
 
-    while ( !(uses_available_letters?(user_input_word, letter_bank)) )
+    while (!(uses_available_letters?(user_input_word, letter_bank)))
       display_needs_valid_input_message
       user_input_word = get_user_input
     end
