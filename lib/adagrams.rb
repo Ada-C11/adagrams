@@ -102,3 +102,13 @@ def highest_score_from(words)
            end
   end
 end
+
+def is_in_english_dict?(input)
+  require "csv"
+  dictionary_array = []
+  CSV.foreach("assets/dictionary-english.csv") do |row|
+    dictionary_array << row
+  end
+  dictionary_array.flatten!
+  return dictionary_array.include?(input) ? true : false
+end
