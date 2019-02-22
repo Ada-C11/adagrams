@@ -165,7 +165,8 @@ describe "Adagrams" do
       expect(best_word[:word]).must_equal words.first
       expect(best_word[:score]).must_equal 18
     end
-
+  end
+  describe "is_in_english_dict method" do
     it "is a valid English word" do
       # Arrange
       word = "tyuzxy"
