@@ -74,9 +74,9 @@ def highest_score_from(words)
       max_words[:score] = v
     end
   end
-
-  puts max_words
-
+  winner = {}
+  
+  min_length = 10
   if max_words[:words].length == 1
     winner = max_words
   else
@@ -84,27 +84,14 @@ def highest_score_from(words)
       if word.length == 10
         winner[:word] = word
         winner[:score] = max_words[:score]
-      else
+      elsif word.length < min_length
+        min_length = word.length
+        winner[:word] = word
+        winner[:score] = max_words[:score]
       end
     end
   end
-  winner = {}
-
-  # tiebreakers
-  # if max_words.length == 1
-  #   winner = {
-  #     word: max_words.keys[0],
-  #     score: max_words.values[0],
-  #   }
-  #   puts winner
-  # elsif max_words.== 10
-  # else
-  #   min_length_winner = max_words.min_by { |k, v| k.length }
-  #   # winner = min_length_winner.to_h
-  #   winner[:word] = min_length_winner[0]
-  #   winner[:score] = min_length_winner[1]
-  #   puts winner
-  # end
+  return winner
 end
 
-highest_score_from(["bananaa", "aaaaaaaaaa", "ora"])
+puts highest_score_from(["banana", "aaaaaaaaaa", "bcd", "cbd", "ora"])
