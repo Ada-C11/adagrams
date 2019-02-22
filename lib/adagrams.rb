@@ -28,16 +28,14 @@ end
 # Validates input word by determining if it can be formed with letters in hand
 def uses_available_letters?(input, letters_in_hand)
   if input.length > letters_in_hand.length
-    #puts "Whoa, buddy. You used more letters than you have in your hand! Try again. "
     return false
   else
+    # reassigning letters_in_hand to new variable in order to avoid destruction of original array
     possible_letters = letters_in_hand
-    input_array = input.split(//)
-    input_array.each do |char|
+    input.split(//).each do |char|
       if possible_letters.include?(char)
         possible_letters.delete(char)
       else
-        #puts "Oh nooooo. You used a letter, #{char}, that's not in your hand"
         return false
       end
     end
@@ -56,10 +54,7 @@ def score_word(word)
     memo += letter_score[char.to_sym]
   end
 
-  if word.length >= 7
-    word_score += 8
-  end
-
+  word_score += 8 if word.length >= 7
   return word_score
 end
 
@@ -82,6 +77,7 @@ def highest_score_from(words)
   return winner
 end
 
+# Verifies input word is in the English language CSV file
 def is_in_english_dict?(input)
   dictionary = CSV.read("assets/dictionary-english.csv")
   valid_word = dictionary.include?(input) ? true : false
