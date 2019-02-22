@@ -63,32 +63,34 @@ def highest_score_from(words)
     highest_score[word] = score_word(word)
   end
 
-  score_word = {
-    words: [],
+  max_words = {
+    word: [],
     score: [],
   }
 
   highest_score.each do |k, v|
     if v == highest_score.values.max
-      score_word[:words] << k
-      score_word[:score] = v
+      max_words[:word] << k
+      max_words[:score] = v
     end
   end
-
+puts max_words
   best_word = {}
 
   min_length = 10
-  if score_word[:words].length == 1
-    best_word = score_word
+  if max_words[:word].length == 1
+    best_word[:word] = max_words[:word][0]
+    best_word[:score] = max_words[:score]
   else
-    score_word[:words].each do |word|
+    max_words[:word].each do |word|
       if word.length == 10
         best_word[:word] = word
-        best_word[:score] = score_word[:score]
+        best_word[:score] = max_words[:score]
+        return best_word
       elsif word.length < min_length
         min_length = word.length
         best_word[:word] = word
-        best_word[:score] = score_word[:score]
+        best_word[:score] = max_words[:score]
       end
     end
   end
