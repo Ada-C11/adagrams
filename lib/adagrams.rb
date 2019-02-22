@@ -1,5 +1,14 @@
 def draw_letters
-  letterset = ["A", "A", "A", "A", "A", "A", "A", "A", "A", "B", "B", "C", "C", "D", "D", "D", "D", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "F", "F", "G", "G", "G", "H", "H", "I", "I", "I", "I", "I", "I", "I", "I", "I", "J", "K", "L", "L", "L", "L", "M", "M", "N", "N", "N", "N", "N", "N", "O", "O", "O", "O", "O", "O", "O", "O", "P", "P", "Q", "R", "R", "R", "R", "R", "R", "S", "S", "S", "S", "T", "T", "T", "T", "T", "T", "U", "U", "U", "U", "V", "V", "W", "W", "X", "Y", "Y", "Z"]
+  letterset =
+    ["A", "A", "A", "A", "A", "A", "A", "A", "A",
+     "B", "B", "C", "C", "D", "D", "D", "D",
+     "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E",
+     "F", "F", "G", "G", "G", "H", "H", "I", "I", "I", "I", "I", "I", "I", "I", "I",
+     "J", "K", "L", "L", "L", "L", "M", "M", "N", "N", "N", "N", "N", "N",
+     "O", "O", "O", "O", "O", "O", "O", "O", "P", "P",
+     "Q", "R", "R", "R", "R", "R", "R", "S", "S", "S", "S",
+     "T", "T", "T", "T", "T", "T", "U", "U", "U", "U", "V", "V",
+     "W", "W", "X", "Y", "Y", "Z"]
 
   hand = letterset.sample(10)
   return hand
@@ -30,11 +39,9 @@ def score_word(word)
         letter_score = value
       end
     end
-    total = total + letter_score
+    total += letter_score
   end
-  if word.length > 6 && word.length < 11
-    total = total + 8
-  end
+  total += 8 if word.length > 6 && word.length < 11
   return total
 end
 
