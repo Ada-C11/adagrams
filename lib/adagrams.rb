@@ -43,9 +43,14 @@ return scored
 end
 
 def highest_score_from(words)
-  record_hash = {
-    word: "",
-    score:
-  }
+  scores = []
   words.each do |word|
-
+  score = score_word(word.upcase)
+  scores << score
+  end
+  record_hash = Hash[words.zip scores]
+  hash_c = record_hash.select { |k, v|  v == record_hash.values.max }
+  puts hash_c
+  puts record_hash
+  return record_hash
+end
