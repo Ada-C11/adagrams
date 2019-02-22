@@ -1,5 +1,5 @@
 require "csv"
-require "smarter_csv"
+require "set"
 
 def draw_letters
   letters_hash = {
@@ -85,35 +85,13 @@ def highest_score_from(words)
   return {:word => candidate, :score => max_score}
 end
 
-def make_dictionary
-  dictionary = Array.new
+def is_in_english_dict?(input)
+  # instant look up using set
+  dictionary = Set.new
   CSV.foreach("/Users/elisepham/Ada/adagrams/assets/dictionary-english.csv", headers: true) do |row|
     if row[0].length <= 10
-      dictionary << row[0]
+      dictionary.add(row[0])
     end
   end
-  return dictionary
-end
-
-def is_in_english_dict?(input)
-  # perform binary search to save time
-  dictionary = make_dictionary
-
-  i = 0
-  j = dictionary.length - 1
-  mid = i + (j - i) / 2
-
-  while i <= j
-    if dictionary[mid] == input
-      return true
-    elsif input < dictionary[mid]
-      j = mid - 1
-      mid = i + (j - i) / 2
-    elsif input > dictionary[mid]
-      i = mid + 1
-      mid = i + (j - i) / 2
-    end
-  end
-
-  return false
+  return dictionary.include?(input)
 end
