@@ -1,4 +1,3 @@
-require "pry"
 require "csv"
 
 # Helper method that creates array of letters that are available to be drawn
@@ -28,9 +27,9 @@ end
 # Validates input word by determining if it can be formed with letters in hand
 def uses_available_letters?(input, letters_in_hand)
   if !(input.is_a?(String))
-    raise ArgumentError, "Ummmmmm the value for input needs to be a string, ok?"
+    raise ArgumentError, "Ummmmmm the value for the first argument needs to be a string, ok? Given value: #{input}"
   elsif !(letters_in_hand.is_a?(Array))
-    raise ArgumentError, "letters_in_hand should be an array. That doesn't look right..."
+    raise ArgumentError, "The second argument should be an array. That doesn't look right...Given value: #{letters_in_hand}"
   end
   if input.length > letters_in_hand.length
     return false
