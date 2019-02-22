@@ -1,5 +1,3 @@
-require "pry"
-
 def draw_letters
   letter_distribution = {
     "a" => 9,
