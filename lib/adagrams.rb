@@ -1,3 +1,6 @@
+require_relative '../assets/dictionary - english.csv"'
+csv.read("dictionary - english.csv")
+
 def draw_letters
   letter_pool = []
   number_of_letters = [9, 2, 2, 3, 12, 2, 3, 2, 9, 1, 1, 4, 2, 6, 8, 2, 1, 6, 4, 6, 4, 2, 2, 1, 2, 1]
@@ -37,7 +40,7 @@ end
 
 puts uses_available_letters?(Adagram_input, test)
 
-SCORE_HASH = { "A" => 1, "E" => 1, "I" => 1, "O" => 1, "U" => 1, "L" => 1, "N" => 1, "R" => 1, "S" => 1, "T" => 1, "D" => 2, "G" => 2, "B" => 3, "C" => 3, "M" => 3, "P" => 3, "F" => 4, "H" => 4, "V" => 4, "W" => 4, "Y" => 4, "K" => 5, "J" => 8, "X" => 8, "Q" => 10, "Z" => 10 }
+SCORE_HASH = {"A" => 1, "E" => 1, "I" => 1, "O" => 1, "U" => 1, "L" => 1, "N" => 1, "R" => 1, "S" => 1, "T" => 1, "D" => 2, "G" => 2, "B" => 3, "C" => 3, "M" => 3, "P" => 3, "F" => 4, "H" => 4, "V" => 4, "W" => 4, "Y" => 4, "K" => 5, "J" => 8, "X" => 8, "Q" => 10, "Z" => 10}
 
 def score_word(word)
   points = 0
@@ -76,18 +79,31 @@ def highest_score_from(words)
   # highest_hash = words_scores_hash.max_by { |k, v| v }
 
   if highest_score_hash.length > 1
-    winner = 0
+    winner = {}
     keys = highest_score_hash.keys
-    lengths = keys.map {|key| key.length}
+    lengths = keys.map { |key| key.length }
     if lengths.include? 10 == true
-      winner = highest_score_hash.select{|k,v| v == 10}
+      winner = highest_score_hash.select { |k, v| v == 10 }.first
     else
-      winner = keys.min_by {|key| key.length}
+      min = keys.min_by { |key| key.length }
+      winner = highest_score_hash.select { |k, v| k == min }.first
     end
-    highest_score_hash = winner
+    highest_score_hash[winner[0]] = winner[1]
   end
-  return highest_score_hash
+  puts "#{highest_score_hash}"
+  puts highest_score_hash.class
+  winning_word = highest_score_hash.keys
+  result = {word: winning_word[0], score: highest_score_hash[winning_word[0]]}
+  return result
 end
 
-test = ["quail", "dog", "zuail", "cat", 'BBBBBB', 'AAAAAAAAAA']
+def is_in_english_dict?(input)
+  if dictionary - english.csv.include?(input)
+    return true
+  else return false   end
+end
+
+test = ["quail", "dog", "zuail", "cat", "BBBBBB", "AAAAAAAAAA"]
 puts highest_score_from(test)
+
+puts is_in_english_dict?("pig")
