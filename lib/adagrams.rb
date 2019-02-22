@@ -12,18 +12,23 @@ def draw_letters
 end
 
 def uses_available_letters?(input, letters_in_hand)
-  # size = 0
+  size = 0
   input_array = input.upcase.split(//)
 
-  letters_in_hand.each do |letter|
+  letters_in_hand.each_with_index do |letter, index|
     if input_array.include?(letter)
-      # input_array delete
-      input_array.delete(letter)
+      size += 1
+      letters_in_hand.delete(index)
     end
   end
+  if size == input_array.length
+    return true
+  else 
+    return false
+  end
 
-  input_array.length == 0 ? true : false
 end
+uses_available_letters?('dog', ["D","O","G","x","X","x","X""x","X"])
 
 def score_word(word)
   points = 0
