@@ -30,11 +30,12 @@ def draw_letters
         "Y", "Y",
         "Z"
     ]
-
-    return letters.sample(10)
-
+    drawn_letters = letters.sample(10)
+    return drawn_letters
 end
 
+
+draw_letters
 
 def uses_available_letters?(input, letters_in_hand)
     input.each_char do |letter|
@@ -96,21 +97,21 @@ score_list.each do |element|
     find_best_word << element
   end
 end
-
+p find_best_word
 winner = []
-longest = find_best_word[0][:word].length
+shortest = find_best_word[0][:word].length
 
 find_best_word.each do |entry|
-  if entry[:word].length < longest
-    winner = [entry]
-    longest = entry[:word].length
-  elsif entry[:word].length == longest 
+  if entry[:word].length == 10
     winner << entry
+    break
+  elsif entry[:word].length < shortest
+    puts ">>>>>>>>>>>> #{entry}"
+    winner << [entry]
+    shortest = entry[:word].length
   end
 end
-p winner
-return winner.first
+
+return winner
 end
 
-result = ["cang", "birrr"]
-highest_score_from(result)
