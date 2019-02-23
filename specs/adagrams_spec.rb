@@ -7,7 +7,7 @@ require_relative '../lib/adagrams'
 # Get that nice colorized output
 Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 
-describe 'Adagrams' do |draw_letters|
+describe 'Adagrams' do
   describe 'draw_letters method' do
     it 'draws ten letters from the letter pool' do
       drawn_letters = draw_letters
