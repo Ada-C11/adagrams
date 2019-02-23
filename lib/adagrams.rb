@@ -98,16 +98,14 @@ score_list.each do |element|
   end
 end
 p find_best_word
-winner = []
-shortest = find_best_word[0][:word].length
+winner = find_best_word.first
+shortest = 10
 
 find_best_word.each do |entry|
   if entry[:word].length == 10
-    winner << entry
-    break
+    return winner = entry
   elsif entry[:word].length < shortest
-    puts ">>>>>>>>>>>> #{entry}"
-    winner << [entry]
+    winner = entry
     shortest = entry[:word].length
   end
 end
