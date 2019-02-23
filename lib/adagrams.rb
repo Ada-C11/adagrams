@@ -102,55 +102,9 @@ def highest_score_from(words)
   end
 
   maximum = scores.max
-  max = maximum[0]
-  puts "#{maximum}"
-
-  tie = scores.flat_map { |i| i }
-  variable = tie.count(max)
-  puts variable
-
   high_score = {
-    word: maximum[0],
-    score: maximum[1],
+    word: maximum[1],
+    score: maximum[0],
   }
-  puts high_score
   return high_score
 end
-
-# count = words.count(maximum[0])
-#puts count
-# HERE
-# scores flat map then count to see if there's a tie for max value
-
-# scores.each do |array|
-#   if array[0].include?(maximum[0])
-#     puts "it's there #{array}"
-#   end
-# end
-
-# puts count
-
-# puts "#{scores}"
-
-# --------
-# puts "#{words}"
-# word_score = score_word(word)
-# puts "#{top_score}"
-# high_score = words.max_by {|word| word_score }
-# variable = words[0]
-# word_score = score_word(variable)
-# puts word_score
-
-# highest_score_from(words)
-# puts score_word(input)
-
-# In the case of tie in scores, use these tie-breaking
-# rules:
-# prefer the word with the fewest letters...
-# ...unless one word has 10 letters. If the top score
-# is tied between multiple words and one is 10 letters
-#long, choose the one with 10 letters over the one with
-#fewer tiles
-# If the there are multiple words that are the same
-#score and the same length, pick the first one in the
-#supplied list
