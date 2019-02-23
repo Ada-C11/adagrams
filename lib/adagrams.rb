@@ -48,19 +48,22 @@ def highest_score_from(words)
   score = score_word(word.upcase)
   scores << score
   end
+
   scores_hash = Hash[words.zip scores]
-  puts scores_hash
   winner_score = scores_hash.select { |key, value|  value == scores_hash.values.max }
-  puts winner_score
-  winner_score.each do |key|
+  
+  winner = ""
+    winner_score.each do |key|
     if key.length == 10
-       winner = word 
+      winner = key
+      break
     else
        winner = winner_score.min_by {|key| key.length }
     end
-  winner_hash = {}
-  winner_hash[:word] =  winner[0]
-  winner_hash[:score] = scores.max
-  return winner_hash
+  end
+  winner_values = {}
+  winner_values[:word] =  winner[0]
+  winner_values[:score] = scores.max
+  return winner_values
 end
-end
+
