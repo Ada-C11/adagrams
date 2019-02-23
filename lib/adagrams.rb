@@ -98,6 +98,6 @@ end
 
 # Wave 5
 def is_in_english_dict?(input)
-  english_words = CSV.read("assets/dictionary_english.csv")
+  english_words = CSV.read("assets/dictionary-english.csv")
   return english_words.flatten!.include?(input)
 end
