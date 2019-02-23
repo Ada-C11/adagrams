@@ -168,4 +168,18 @@ describe 'Adagrams' do
       expect(best_word[:score]).must_equal 18
     end
   end
+
+  describe 'is_in_english_dict?' do
+    it 'returns true if word is in dictionary' do
+      word = 'apple'
+
+      expect(is_in_english_dict?(word)).must_equal true
+    end
+
+    it 'returns false if word is not in dictionary' do
+      word = 'iasdjpoasdjias'
+
+      expect(is_in_english_dict?(word)).must_equal false
+    end
+  end
 end
