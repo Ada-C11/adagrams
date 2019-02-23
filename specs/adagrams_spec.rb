@@ -56,6 +56,7 @@ describe 'Adagrams' do
     end
 
   end
+ 
 
   describe 'score_word method' do
     it 'returns an accurate numerical score according to the score chart' do

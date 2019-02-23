@@ -12,7 +12,8 @@ end
 
 def run_game
   display_welcome_message
-  display_drawn_letters(draw_letters)
+  display_drawn_letters
 end
 
 run_game
+ 
