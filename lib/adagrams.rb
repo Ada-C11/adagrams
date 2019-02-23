@@ -1,22 +1,20 @@
+require "pry"
 
 # WAVE 1
 LETTER_POOL = {a: 9, b: 2, c: 2, d: 4, e: 12, f: 2, g: 3, h: 2, i: 9, j: 1, k: 1, l: 4, m: 2,
                n: 6, o: 8, p: 2, q: 1, r: 6, s: 4, t: 6, u: 4, v: 2, w: 2, x: 1, y: 2, z: 1}
 
 def draw_letters
-  # Generate array of numbers
   letter_draw = LETTER_POOL.map do |key, value|
     (key.to_s * value).split("")
   end
   letter_draw.flatten!
 
-  # .sample doesn't draw the same element twice
   user_hand = letter_draw.sample(10)
   return user_hand
 end
 
 # WAVE 2
-# Determines whether input is valid (based on user hand)
 def uses_available_letters?(input, letters_in_hand)
   uses_available_letters = true
   input.each_char do |letter|
@@ -39,9 +37,7 @@ SCORE_CHART = {1 => ["a", "e", "i", "o", "u", "l", "n", "r", "s", "t"],
                8 => ["j", "x"],
                10 => ["q", "z"]}
 
-# Score's the user's word
 def score_word(word)
-  # Add point values
   total_score = 0
 
   word.each_char do |char|
@@ -52,29 +48,27 @@ def score_word(word)
     end
   end
 
-  # Add 8 points if word has >6 letters
   if word.length > 6
     total_score += 8
   end
   return total_score
 end
 
-# score = score_word(input)
-# puts score
-
-# WAVE 4
 def tie_breaker(word, current_best, list)
-  # Does the word have 10 letters?
-  if word.length == 10 || word.length < current_best || list.index(word) < list.index(current_best)
-    current_best = word
+  new_best = current_best
+  if word.length == current_best.length
+    if list.index("#{word}") < list.index("#{current_best}")
+      new_best = word
+    end
+  elsif word.length == 10
+    new_best = word
+  elsif word.length < current_best.length
+    new_best = word
   end
-
-  return current_best
+  return new_best
 end
 
-def highest_score_from_words(words)
-
-  # What is each word's score?
+def highest_score_from(words)
   all_scores = {}
   words.each do |word|
     score = score_word(word)
@@ -83,24 +77,19 @@ def highest_score_from_words(words)
 
   best_word = ""
   best_score = 0
-  # Which word(s) have the highest score?
   all_scores.each do |word, score|
-    if score > best_score
+    if word.length == 10
+      best_word = word
+      best_score = score
+      break
+    elsif score > best_score
       best_word = word
       best_score = score
     elsif score == best_score
-      # BREAK THE TIE
-    else
-      # NOTHING, go on to next word!
+      best_word = tie_breaker(word, best_word, words)
     end
   end
 
-  return best_word
+  winner = {word: best_word, score: best_score}
+  return winner
 end
-
-# Make a tie-breaking method!
-
-# Which word was supplied first?
-# Is word's index less than best word's index?
-# Yes - New best word!
-# No - Nothing.  Best word remains unchanged.
