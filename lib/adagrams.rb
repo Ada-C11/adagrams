@@ -58,12 +58,9 @@ def uses_available_letters?(input, letters_in_hand)
   # uses_available_letters methods.
   input_copy = input.dup
 
-  p input
-
   # Check if letters in the input are all in the letters_in_hand array
-  loop_count = 1
   input.each_with_index do |letter, input_index|
-    puts "Loop count: #{loop_count}"
+    
     if letters_in_hand.include?(letter)
       hand_index = 0
       letters_in_hand.each_with_index do |letter_in_hand, index|
@@ -73,8 +70,7 @@ def uses_available_letters?(input, letters_in_hand)
         end
         hand_index += 1
       end
-      puts "This letter is: #{letter}"
-      puts "Letters in hand before delete are: #{letters_in_hand}"
+
       letters_in_hand.delete_at(hand_index)
 
       i = 0
@@ -84,12 +80,8 @@ def uses_available_letters?(input, letters_in_hand)
           break
         end
       end
-      puts "Letters in hand after delete are: #{letters_in_hand}"
-      puts "Letters in input_copy before delete are: #{input_copy}"
       input_copy.delete_at(i)
-      puts "Letters in input_copy after delete are: #{input_copy}"
     end
-    loop_count += 1
   end
 
   if input_copy.length == 0
@@ -99,7 +91,7 @@ def uses_available_letters?(input, letters_in_hand)
   end
 end
 
-# This method calculates a score for the word the user submits.
+# Calculate a score for the word the user submits.
 def score_word(word)
   total_score = 0
   if word.length > 6
@@ -116,8 +108,7 @@ def score_word(word)
   return total_score
 end
 
-# ["H", "S", "I", "F", "R", "A", "S", "T"]
-
+# Find the highest score from all submitted words.
 def highest_score_from(words)
   words_scores_array = []
   words.each do |this_word|
@@ -158,10 +149,3 @@ def highest_score_from(words)
   winning_word[:score] = max_score.to_i
   return winning_word
 end
-
-# letters_in_hand = ["H", "S", "I", "F", "R", "A", "S", "T", "W"]
-# p uses_available_letters?("staarfish", letters_in_hand)
-# score = score_word("starfish")
-
-# puts winning_words
-# puts winning_word
