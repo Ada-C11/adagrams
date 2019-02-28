@@ -35,7 +35,7 @@ def uses_available_letters?(input, letters_in_hand)
     return false
   else
     # reassigning letters_in_hand to new variable in order to avoid destruction of original array
-    possible_letters = letters_in_hand
+    possible_letters = letters_in_hand.clone
     input.upcase.split(//).each do |char|
       if possible_letters.include?(char)
         possible_letters.delete(char)
